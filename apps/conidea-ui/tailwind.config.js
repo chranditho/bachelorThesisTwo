@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ['Roboto', 'Helvetica Neue', 'sans-serif'],
       },
       colors: {
         primary: {
