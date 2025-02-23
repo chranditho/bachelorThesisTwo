@@ -44,6 +44,8 @@
     "@angular/cli": "~19.1.0",
     "@angular/compiler-cli": "19.1.7",
     "@angular/language-service": "19.1.7",
+    "@eslint/eslintrc": "^2.1.1",
+    "@eslint/js": "~8.57.0",
     "@nestjs/schematics": "^11.0.1",
     "@nestjs/testing": "^11.0.10",
     "@nx/angular": "20.4.6",
@@ -60,8 +62,6 @@
     "@schematics/angular": "19.1.8",
     "@types/jest": "29.5.14",
     "@types/node": "18.19.76",
-    "@typescript-eslint/eslint-plugin": "8.24.1",
-    "@typescript-eslint/parser": "8.24.1",
     "@typescript-eslint/utils": "^8.24.1",
     "autoprefixer": "^10.4.20",
     "cypress": "13.17.0",
@@ -80,6 +80,7 @@
     "tailwindcss": "^3.4.17",
     "ts-jest": "^29.2.6",
     "ts-node": "10.9.2",
-    "typescript": "5.7.3"
+    "typescript": "5.7.3",
+    "typescript-eslint": "^8.19.0"
   }
 }
