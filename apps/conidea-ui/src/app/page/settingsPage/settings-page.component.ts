@@ -84,14 +84,14 @@ export class SettingsPageComponent implements OnInit {
     });
   }
 
+  getFullname(user: User) {
+    return `${user.firstname} ${user.lastname}`;
+  }
+
   private showSnackBar(message: string, panelClass: string) {
     this.snackBar.open(message, '', {
       duration: 3000,
       panelClass: [panelClass],
     });
-  }
-
-  getFullname(user: User) {
-    return `${user.firstname} ${user.lastname}`;
   }
 }

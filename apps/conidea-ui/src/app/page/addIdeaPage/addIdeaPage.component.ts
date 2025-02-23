@@ -138,13 +138,6 @@ export class AddIdeaPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  private showSnackBar(message: string, panelClass: string) {
-    this.snackBar.open(message, '', {
-      duration: 3000,
-      panelClass: [panelClass],
-    });
-  }
-
   navigateToFeed() {
     this.router.navigate(['']);
   }
@@ -153,5 +146,12 @@ export class AddIdeaPageComponent implements OnInit, OnDestroy {
     if (this.ideaSubscription) {
       this.ideaSubscription.unsubscribe();
     }
+  }
+
+  private showSnackBar(message: string, panelClass: string) {
+    this.snackBar.open(message, '', {
+      duration: 3000,
+      panelClass: [panelClass],
+    });
   }
 }

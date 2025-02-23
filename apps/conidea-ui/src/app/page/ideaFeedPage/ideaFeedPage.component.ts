@@ -43,12 +43,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   ],
 })
 export class IdeaFeedPageComponent implements OnInit {
-  protected readonly UserRole = UserRole;
-  private ideasSubject = new BehaviorSubject<Idea[]>([]);
-  ideas$ = this.ideasSubject.asObservable();
   drafts$!: Observable<DraftDto[]>;
   user$!: Observable<User>;
   isEditing: { [key: string]: boolean } = {};
+  protected readonly UserRole = UserRole;
+  private ideasSubject = new BehaviorSubject<Idea[]>([]);
+  ideas$ = this.ideasSubject.asObservable();
 
   constructor(
     private ideaService: IdeaService,
@@ -93,6 +93,7 @@ export class IdeaFeedPageComponent implements OnInit {
       .updateDraft$(draftId, updatedDraft)
       .subscribe(() => this.toggleEdit(draftId));
   }
+
   // Failed to delete draft. Please try again.
   deleteDraft(ideaId: string) {
     this.draftService.delete$(ideaId).subscribe({

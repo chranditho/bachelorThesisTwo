@@ -30,25 +30,6 @@ export class UserService implements OnModuleInit {
     await this.insertManyIfNotExist([this.DEFAULT_USER, this.REVIEWER]);
   }
 
-  private async insertManyIfNotExist(
-    users: Omit<User, '_id'>[],
-  ): Promise<void> {
-    for (const user of users) {
-      const uniqueEmails = user.email;
-
-      const existingUser = await this.userModel.findOneAndUpdate(
-        { email: uniqueEmails },
-        { $setOnInsert: user },
-        { upsert: true, new: true },
-      );
-
-      Logger.log(
-        `Started conidea-api with user: ${existingUser}`,
-        UserService.name,
-      );
-    }
-  }
-
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
@@ -70,5 +51,24 @@ export class UserService implements OnModuleInit {
     return this.userModel
       .findByIdAndUpdate(userId, { role: newRole }, { new: true })
       .exec();
+  }
+
+  private async insertManyIfNotExist(
+    users: Omit<User, '_id'>[],
+  ): Promise<void> {
+    for (const user of users) {
+      const uniqueEmails = user.email;
+
+      const existingUser = await this.userModel.findOneAndUpdate(
+        { email: uniqueEmails },
+        { $setOnInsert: user },
+        { upsert: true, new: true },
+      );
+
+      Logger.log(
+        `Started conidea-api with user: ${existingUser}`,
+        UserService.name,
+      );
+    }
   }
 }

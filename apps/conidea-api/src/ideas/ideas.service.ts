@@ -62,12 +62,6 @@ export class IdeasService {
     }
   }
 
-  private async getIdea(id: string) {
-    return this.ideaModel.findById(id).orFail(() => {
-      throw new NotFoundException('Idea not found');
-    });
-  }
-
   async addComment(createCommentDto: CreateCommentDto): Promise<Idea> {
     await this.ideaModel.updateOne(
       { _id: createCommentDto.ideaId },
@@ -79,6 +73,12 @@ export class IdeasService {
 
   async submitDraft(createDraftDto: CreateDraftDto): Promise<Idea> {
     return await this.createFromDraft(createDraftDto);
+  }
+
+  private async getIdea(id: string) {
+    return this.ideaModel.findById(id).orFail(() => {
+      throw new NotFoundException('Idea not found');
+    });
   }
 
   private async createFromDraft(createDraftDto: CreateDraftDto): Promise<Idea> {

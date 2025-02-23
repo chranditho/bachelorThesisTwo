@@ -12,11 +12,11 @@
       ></mat-icon>
       <div class="text-sm">
         @if (idea.author; as author) {
-        <p class="text-slate-900">
-          {{ author.firstname }} {{ author.lastname }}
-        </p>
+          <p class="text-slate-900">
+            {{ author.firstname }} {{ author.lastname }}
+          </p>
         }
-        <p class="text-slate-600">{{ idea.createdAt | date : 'dd MMM' }}</p>
+        <p class="text-slate-600">{{ idea.createdAt | date: 'dd MMM' }}</p>
       </div>
     </div>
     <conidea-idea-status

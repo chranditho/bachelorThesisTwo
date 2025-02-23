@@ -19,9 +19,7 @@
           "apps/conidea-ui/src/favicon.ico",
           "apps/conidea-ui/src/assets"
         ],
-        "styles": [
-          "apps/conidea-ui/src/styles.scss"
-        ],
+        "styles": ["apps/conidea-ui/src/styles.scss"],
         "scripts": []
       },
       "configurations": {

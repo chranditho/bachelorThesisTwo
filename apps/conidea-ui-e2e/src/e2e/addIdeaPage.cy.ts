@@ -41,11 +41,11 @@ describe('Add Idea Page', () => {
     cy.url().should('include', '/');
     cy.get('conidea-idea-feed conidea-idea-card #card-title').should(
       'contain',
-      'what a beautiful title'
+      'what a beautiful title',
     );
     cy.get('conidea-idea-feed conidea-idea-card #card-description').should(
       'contain',
-      'such an amazing description'
+      'such an amazing description',
     );
   });
 });
