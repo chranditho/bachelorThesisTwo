@@ -1,8 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "workspaceLayout": {
-    "projectNameAndRootFormat": "as-provided"
-  },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
@@ -35,6 +32,11 @@
         "{workspaceRoot}/eslint.config.mjs"
       ],
       "cache": true
+    },
+    "@nx/webpack:webpack": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {
@@ -93,15 +95,17 @@
       "include": [
         "apps/conidea-api/**/*",
         "apps/conidea-ui/**/*",
-        "apps/model/**/*"
-      ]
+        "apps/model/**/*",
+        "apps/users-api/**/*"
+      ],
+      "exclude": ["apps/users-api-e2e/**/*", "apps/users-api-e2e/**/*"]
     },
     {
       "plugin": "@nx/jest/plugin",
       "options": {
         "targetName": "e2e"
       },
-      "include": ["apps/conidea-api-e2e/**/*"]
+      "include": ["apps/conidea-api-e2e/**/*", "apps/users-api-e2e/**/*"]
     }
   ]
 }
