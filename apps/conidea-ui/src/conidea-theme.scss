@@ -1,0 +1,129 @@
+@use '@angular/material' as mat;
+
+// Include the common styles for Angular Material
+@include mat.core();
+
+// Custom colors
+$primary-color: #217090;
+$accent-color: #90e0ef;
+$warn-color: #ef7f46;
+
+// Define custom palettes using your exact colors
+$conidea-primary: mat.define-palette(
+  (
+    50: lighten($primary-color, 50%),
+    100: lighten($primary-color, 40%),
+    200: lighten($primary-color, 30%),
+    300: lighten($primary-color, 20%),
+    400: lighten($primary-color, 10%),
+    500: $primary-color,
+    600: darken($primary-color, 10%),
+    700: darken($primary-color, 20%),
+    800: darken($primary-color, 30%),
+    900: darken($primary-color, 40%),
+    A100: lighten($primary-color, 60%),
+    A200: lighten($primary-color, 50%),
+    A400: lighten($primary-color, 40%),
+    A700: lighten($primary-color, 30%),
+    contrast: (
+      50: black,
+      100: black,
+      200: black,
+      300: black,
+      400: black,
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+      A100: black,
+      A200: black,
+      A400: black,
+      A700: black,
+    ),
+  )
+);
+
+$conidea-accent: mat.define-palette(
+  (
+    50: lighten($accent-color, 50%),
+    100: lighten($accent-color, 40%),
+    200: lighten($accent-color, 30%),
+    300: lighten($accent-color, 20%),
+    400: lighten($accent-color, 10%),
+    500: $accent-color,
+    600: darken($accent-color, 10%),
+    700: darken($accent-color, 20%),
+    800: darken($accent-color, 30%),
+    900: darken($accent-color, 40%),
+    A100: lighten($accent-color, 60%),
+    A200: lighten($accent-color, 50%),
+    A400: lighten($accent-color, 40%),
+    A700: lighten($accent-color, 30%),
+    contrast: (
+      50: black,
+      100: black,
+      200: black,
+      300: black,
+      400: black,
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+      A100: black,
+      A200: black,
+      A400: black,
+      A700: black,
+    ),
+  )
+);
+
+$conidea-warn: mat.define-palette(
+  (
+    50: lighten($warn-color, 50%),
+    100: lighten($warn-color, 40%),
+    200: lighten($warn-color, 30%),
+    300: lighten($warn-color, 20%),
+    400: lighten($warn-color, 10%),
+    500: $warn-color,
+    600: darken($warn-color, 10%),
+    700: darken($warn-color, 20%),
+    800: darken($warn-color, 30%),
+    900: darken($warn-color, 40%),
+    A100: lighten($warn-color, 60%),
+    A200: lighten($warn-color, 50%),
+    A400: lighten($warn-color, 40%),
+    A700: lighten($warn-color, 30%),
+    contrast: (
+      50: black,
+      100: black,
+      200: black,
+      300: black,
+      400: black,
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+      A100: black,
+      A200: black,
+      A400: black,
+      A700: black,
+    ),
+  )
+);
+
+// Create the theme
+$conidea-ui-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $conidea-primary,
+      accent: $conidea-accent,
+      warn: $conidea-warn,
+    ),
+  )
+);
+
+// Include theme styles
+@include mat.all-component-themes($conidea-ui-theme);

@@ -1,0 +1,54 @@
+{
+  "name": "conidea-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/conidea-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/conidea-api",
+        "main": "apps/conidea-api/src/main.ts",
+        "tsConfig": "apps/conidea-api/tsconfig.app.json",
+        "assets": ["apps/conidea-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/conidea-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "conidea-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "conidea-api:build:development"
+        },
+        "production": {
+          "buildTarget": "conidea-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/conidea-api/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,27 @@
+<article class="flex flex-col gap-2 sm:gap-4">
+  <conidea-back-button />
+  <h1 class="text-center">Settings</h1>
+
+  @if (users$ | async; as users) {
+
+  <h2>Users</h2>
+  <p>Choose which User to log in</p>
+
+  <mat-tab-group
+    [selectedIndex]="selectedTab.value"
+    (selectedTabChange)="logInUser(users, $event.index)"
+  >
+    @for (user of users; track user._id) {
+    <mat-tab [label]="getFullname(user)" (focus)="(user.isLoggedIn)">
+      <div class="p-4">
+        <conidea-role-switch
+          [isToggleChecked]="user.role === UserRole.Reviewer"
+          (toggleChecked)="switchRole($event, user._id)"
+        />
+      </div>
+    </mat-tab>
+    }
+  </mat-tab-group>
+
+  }
+</article>

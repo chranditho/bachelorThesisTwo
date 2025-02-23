@@ -1,0 +1,38 @@
+@if (status) {
+<mat-form-field>
+  <mat-label>Status</mat-label>
+  <mat-select
+    [(value)]="status"
+    [disabled]="!isStatusChangeable"
+    (selectionChange)="this.statusChange.emit(status)"
+  >
+    @switch (status) { @case (Status.Submitted) {
+    <mat-option [value]="Status.Submitted">{{ Status.Submitted }}</mat-option>
+    <mat-option [value]="Status.InReview">{{ Status.InReview }}</mat-option>
+    } @case (Status.InReview) {
+    <mat-option [value]="Status.Submitted">{{ Status.Submitted }}</mat-option>
+    <mat-option [value]="Status.InReview">{{ Status.InReview }}</mat-option>
+    <mat-option [value]="Status.Accepted">{{ Status.Accepted }}</mat-option>
+    <mat-option [value]="Status.Rejected">{{ Status.Rejected }}</mat-option>
+    } @case (Status.Accepted) {
+    <mat-option [value]="Status.Submitted">{{ Status.Submitted }}</mat-option>
+    <mat-option [value]="Status.InReview">{{ Status.InReview }}</mat-option>
+    <mat-option [value]="Status.Accepted">{{ Status.Accepted }}</mat-option>
+    <mat-option [value]="Status.Rejected">{{ Status.Rejected }}</mat-option>
+    <mat-option [value]="Status.Finished">{{ Status.Finished }}</mat-option>
+    } @case (Status.Rejected) {
+    <mat-option [value]="Status.Submitted">{{ Status.Submitted }}</mat-option>
+    <mat-option [value]="Status.InReview">{{ Status.InReview }}</mat-option>
+    <mat-option [value]="Status.Accepted">{{ Status.Accepted }}</mat-option>
+    <mat-option [value]="Status.Rejected">{{ Status.Rejected }}</mat-option>
+    <mat-option [value]="Status.Finished">{{ Status.Finished }}</mat-option>
+    } @case (Status.Finished) {
+    <mat-option [value]="Status.Finished">{{ Status.Finished }}</mat-option>
+    } }
+  </mat-select>
+</mat-form-field>
+} @else {
+<button class="flex px-2 rounded-lg bg-slate-500 text-white" id="statusButton">
+  no status
+</button>
+}

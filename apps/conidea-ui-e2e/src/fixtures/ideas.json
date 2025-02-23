@@ -1,0 +1,32 @@
+[
+  {
+    "title": "New Title",
+    "description": "Your idea description",
+    "author": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "createdAt": "2023-01-01T12:00:00.000Z",
+    "status": "Submitted"
+  },
+  {
+    "title": "Submitted Idea",
+    "description": "Your idea description",
+    "author": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "createdAt": "2023-01-01T12:00:00.000Z",
+    "status": "Submitted"
+  },
+  {
+    "title": "Finished Idea",
+    "description": "Your idea description",
+    "author": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "createdAt": "2023-01-01T12:00:00.000Z",
+    "status": "Finished"
+  }
+]

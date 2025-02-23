@@ -1,0 +1,28 @@
+<article class="space-y-4">
+  <div>
+    <h5 id="card-title">{{ idea.title }}</h5>
+    <p [innerHTML]="idea.description" class="text-lg" id="card-description"></p>
+  </div>
+  <div class="flex justify-between">
+    <div class="flex gap-2">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Author Icon"
+        fontIcon="person"
+      ></mat-icon>
+      <div class="text-sm">
+        @if (idea.author; as author) {
+        <p class="text-slate-900">
+          {{ author.firstname }} {{ author.lastname }}
+        </p>
+        }
+        <p class="text-slate-600">{{ idea.createdAt | date : 'dd MMM' }}</p>
+      </div>
+    </div>
+    <conidea-idea-status
+      (statusChange)="onStatusChange($event)"
+      [isStatusChangeable]="isStatusChangeable"
+      [status]="idea.status"
+    />
+  </div>
+</article>
