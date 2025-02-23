@@ -68,7 +68,6 @@
     }
   },
   "useInferencePlugins": false,
-  "useLegacyCache": true,
   "plugins": [
     {
       "plugin": "@nx/cypress/plugin",
