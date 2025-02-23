@@ -68,5 +68,41 @@
     }
   },
   "useInferencePlugins": false,
-  "useLegacyCache": true
+  "useLegacyCache": true,
+  "plugins": [
+    {
+      "plugin": "@nx/cypress/plugin",
+      "options": {
+        "targetName": "e2e",
+        "ciTargetName": "e2e-ci",
+        "componentTestingTargetName": "component-test",
+        "openTargetName": "open-cypress"
+      },
+      "include": ["apps/conidea-ui-e2e/**/*"]
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      },
+      "include": [
+        "apps/conidea-api/**/*",
+        "apps/conidea-ui/**/*",
+        "apps/model/**/*"
+      ]
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "e2e"
+      },
+      "include": ["apps/conidea-api-e2e/**/*"]
+    }
+  ]
 }

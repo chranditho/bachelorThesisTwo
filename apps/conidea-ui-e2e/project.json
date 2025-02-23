@@ -7,23 +7,21 @@
   "implicitDependencies": ["conidea-ui"],
   "targets": {
     "e2e": {
-      "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/conidea-ui-e2e/cypress.config.ts",
-        "devServerTarget": "conidea-ui:serve:development",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "conidea-ui:serve:production"
-        },
-        "ci": {
-          "devServerTarget": "conidea-ui:serve-static"
-        }
+        "config-file": "./cypress.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore",
+        "{workspaceRoot}/eslint.config.js",
+        "{workspaceRoot}/eslint.config.mjs",
+        {
+          "externalDependencies": ["eslint"]
+        }
+      ]
     }
   }
 }
