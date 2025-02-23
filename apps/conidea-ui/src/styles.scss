@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 @use './conidea_theme-colors' as conidea-theme-colors;
-@import '~quill/dist/quill.bubble.css';
+@import 'quill/dist/quill.bubble.css';
 
 @tailwind base;
 @tailwind components;

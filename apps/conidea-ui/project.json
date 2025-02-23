@@ -7,20 +7,28 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": [
+        "{options.outputPath.base}"
+      ],
       "options": {
-        "outputPath": "dist/apps/conidea-ui",
+        "outputPath": {
+          "base": "dist/apps/conidea-ui"
+        },
         "index": "apps/conidea-ui/src/index.html",
-        "main": "apps/conidea-ui/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/conidea-ui/tsconfig.app.json",
         "assets": [
           "apps/conidea-ui/src/favicon.ico",
           "apps/conidea-ui/src/assets"
         ],
-        "styles": ["apps/conidea-ui/src/styles.scss"],
-        "scripts": []
+        "styles": [
+          "apps/conidea-ui/src/styles.scss"
+        ],
+        "scripts": [],
+        "browser": "apps/conidea-ui/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -39,9 +47,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -78,7 +84,9 @@
         "{workspaceRoot}/eslint.config.js",
         "{workspaceRoot}/eslint.config.mjs",
         {
-          "externalDependencies": ["eslint"]
+          "externalDependencies": [
+            "eslint"
+          ]
         }
       ]
     },
@@ -88,7 +96,9 @@
         "^production",
         "{workspaceRoot}/jest.preset.js",
         {
-          "externalDependencies": ["jest"]
+          "externalDependencies": [
+            "jest"
+          ]
         }
       ],
       "options": {
