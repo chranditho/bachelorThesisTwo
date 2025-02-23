@@ -31,12 +31,12 @@ export class IdeasController {
   @Post('new')
   @UsePipes(new ValidationPipe({ transform: true }))
   async create(
-    @Body() createIdeaDto: CreateIdeaDto
+    @Body() createIdeaDto: CreateIdeaDto,
   ): Promise<{ message: string }> {
     try {
       Logger.log(
         `Creating new Idea: ${createIdeaDto.title} ${createIdeaDto.description}`,
-        IdeasController.name
+        IdeasController.name,
       );
 
       await this.ideasService.create(createIdeaDto);
@@ -48,7 +48,7 @@ export class IdeasController {
     } catch (error) {
       Logger.error(
         `Error creating new idea: ${error.message || 'Invalid idea'}`,
-        IdeasController.name
+        IdeasController.name,
       );
 
       throw new HttpException(
@@ -59,7 +59,7 @@ export class IdeasController {
         HttpStatus.BAD_REQUEST,
         {
           cause: error,
-        }
+        },
       );
     }
   }

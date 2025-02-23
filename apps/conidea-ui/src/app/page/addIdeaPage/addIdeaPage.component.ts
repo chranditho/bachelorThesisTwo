@@ -19,67 +19,67 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DraftService } from '../../service/draft.service';
 
 @Component({
-    selector: 'conidea-add-idea-page',
-    imports: [
-        QuillEditorComponent,
-        ReactiveFormsModule,
-        MatButtonModule,
-        RouterModule,
-        MatIconModule,
-        BackButtonComponent,
-        AsyncPipe,
-    ],
-    template: `
+  selector: 'conidea-add-idea-page',
+  imports: [
+    QuillEditorComponent,
+    ReactiveFormsModule,
+    MatButtonModule,
+    RouterModule,
+    MatIconModule,
+    BackButtonComponent,
+    AsyncPipe,
+  ],
+  template: `
     <article class="space-y-6">
       <conidea-back-button />
       <h1 class="text-center">What idea is on your mind?</h1>
       @if (user$ | async; as user) {
-      <form [formGroup]="ideaForm" class="flex flex-col items-center gap-8">
-        <input
-          class="w-full bg-secondary rounded-lg p-4 font-bold placeholder:italic placeholder:text-primary"
-          [formControlName]="'title'"
-          placeholder="title"
-        />
-        <quill-editor
-          id="description"
-          class="w-full bg-secondary rounded-lg h-96"
-          [formControlName]="'description'"
-          placeholder="description"
-        >
-        </quill-editor>
-        <div class="flex gap-4">
-          <button
-            id="submit"
-            mat-raised-button
-            color="primary"
-            type="submit"
-            [disabled]="ideaForm.invalid"
-            (click)="onSubmit(user._id)"
+        <form [formGroup]="ideaForm" class="flex flex-col items-center gap-8">
+          <input
+            class="w-full bg-secondary rounded-lg p-4 font-bold placeholder:italic placeholder:text-primary"
+            [formControlName]="'title'"
+            placeholder="title"
+          />
+          <quill-editor
+            id="description"
+            class="w-full bg-secondary rounded-lg h-96"
+            [formControlName]="'description'"
+            placeholder="description"
           >
-            Submit
-          </button>
-          <button
-            id="save"
-            mat-stroked-button
-            color="primary"
-            type="submit"
-            [disabled]="ideaForm.invalid"
-            (click)="onSave(user._id)"
-          >
-            Save as draft
-          </button>
-        </div>
-      </form>
+          </quill-editor>
+          <div class="flex gap-4">
+            <button
+              id="submit"
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="ideaForm.invalid"
+              (click)="onSubmit(user._id)"
+            >
+              Submit
+            </button>
+            <button
+              id="save"
+              mat-stroked-button
+              color="primary"
+              type="submit"
+              [disabled]="ideaForm.invalid"
+              (click)="onSave(user._id)"
+            >
+              Save as draft
+            </button>
+          </div>
+        </form>
       }
     </article>
   `,
-    styles: [
-        `
+  styles: [
+    `
       :host {
         @apply block space-y-6 max-w-3xl mx-auto;
       }
     `,
-    ]
+  ],
 })
 export class AddIdeaPageComponent implements OnInit, OnDestroy {
   user$!: Observable<User>;
@@ -97,7 +97,7 @@ export class AddIdeaPageComponent implements OnInit, OnDestroy {
     private ideaService: IdeaService,
     private draftService: DraftService,
     private roleService: RoleService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {

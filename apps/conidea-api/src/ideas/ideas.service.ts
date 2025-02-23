@@ -41,7 +41,7 @@ export class IdeasService {
       .findByIdAndUpdate(
         changeStatusDto.ideaId,
         { status: changeStatusDto.status },
-        { new: true }
+        { new: true },
       )
       .populate('author')
       .exec();
@@ -53,11 +53,11 @@ export class IdeasService {
     const validTransition =
       StatusTransitionValidatorService.checkStatusTransitionValidity(
         idea.status,
-        changeStatusDto.status
+        changeStatusDto.status,
       );
     if (!validTransition) {
       throw new BadRequestException(
-        `Invalid status transition from ${idea.status} to ${changeStatusDto.status}`
+        `Invalid status transition from ${idea.status} to ${changeStatusDto.status}`,
       );
     }
   }
@@ -71,7 +71,7 @@ export class IdeasService {
   async addComment(createCommentDto: CreateCommentDto): Promise<Idea> {
     await this.ideaModel.updateOne(
       { _id: createCommentDto.ideaId },
-      { $push: { comments: createCommentDto.comment } }
+      { $push: { comments: createCommentDto.comment } },
     );
 
     return this.ideaModel.findById(createCommentDto.ideaId).populate('author');

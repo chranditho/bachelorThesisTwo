@@ -25,13 +25,13 @@ export class UserService implements OnModuleInit {
   async onModuleInit() {
     Logger.warn(
       'User collection only consists of mocked data until an Identity Provider is supplied',
-      UserService.name
+      UserService.name,
     );
     await this.insertManyIfNotExist([this.DEFAULT_USER, this.REVIEWER]);
   }
 
   private async insertManyIfNotExist(
-    users: Omit<User, '_id'>[]
+    users: Omit<User, '_id'>[],
   ): Promise<void> {
     for (const user of users) {
       const uniqueEmails = user.email;
@@ -39,12 +39,12 @@ export class UserService implements OnModuleInit {
       const existingUser = await this.userModel.findOneAndUpdate(
         { email: uniqueEmails },
         { $setOnInsert: user },
-        { upsert: true, new: true }
+        { upsert: true, new: true },
       );
 
       Logger.log(
         `Started conidea-api with user: ${existingUser}`,
-        UserService.name
+        UserService.name,
       );
     }
   }

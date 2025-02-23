@@ -22,8 +22,8 @@ describe('StatusTransitionValidatorService', () => {
           expect(
             StatusTransitionValidatorService.checkStatusTransitionValidity(
               fromStatus,
-              toStatus
-            )
+              toStatus,
+            ),
           ).toEqual(isValidTransition);
         });
       });

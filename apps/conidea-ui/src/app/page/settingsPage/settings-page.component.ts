@@ -6,31 +6,29 @@ import { Observable, tap } from 'rxjs';
 import { User, UserRole } from '@conidea/model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
 import { BackButtonComponent } from '../../component/backButton/back-button.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'conidea-settings-page',
-    imports: [
-        CommonModule,
-        RoleSwitchComponent,
-        MatButtonModule,
-        MatIconModule,
-        RouterLink,
-        BackButtonComponent,
-        MatTabsModule,
-    ],
-    templateUrl: './settings-page.component.html',
-    styles: [
-        `
+  selector: 'conidea-settings-page',
+  imports: [
+    CommonModule,
+    RoleSwitchComponent,
+    MatButtonModule,
+    MatIconModule,
+    BackButtonComponent,
+    MatTabsModule,
+  ],
+  templateUrl: './settings-page.component.html',
+  styles: [
+    `
       :host {
         @apply block space-y-2 sm:space-y-4 max-w-3xl mx-auto;
       }
     `,
-    ]
+  ],
 })
 export class SettingsPageComponent implements OnInit {
   users$!: Observable<User[]>;
@@ -39,7 +37,7 @@ export class SettingsPageComponent implements OnInit {
 
   constructor(
     private roleService: RoleService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +48,7 @@ export class SettingsPageComponent implements OnInit {
         if (loggedInUserIndex !== -1) {
           this.selectedTab.setValue(loggedInUserIndex);
         }
-      })
+      }),
     );
   }
 
@@ -80,7 +78,7 @@ export class SettingsPageComponent implements OnInit {
       next: (next) =>
         this.showSnackBar(
           `Role switched to ${next.role} successfully`,
-          'success-snackbar'
+          'success-snackbar',
         ),
       error: () => this.showSnackBar('Error switching roles', 'error-snackbar'),
     });

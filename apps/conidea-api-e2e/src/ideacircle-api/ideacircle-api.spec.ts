@@ -18,7 +18,7 @@ describe('POST api/ideas/new', () => {
 
     response = await axios.post<{ message: string }>(
       `${apiUrl}/ideas/new`,
-      data
+      data,
     );
     expect(response.status).toBe(201);
     expect(response.data.message).toBe('Idea created successfully!');

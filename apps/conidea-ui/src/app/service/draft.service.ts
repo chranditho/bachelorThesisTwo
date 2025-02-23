@@ -14,7 +14,7 @@ export class DraftService {
   create(newDraft: CreateDraftDto) {
     return this.httpClient.post<{ message: string }>(
       `${this.draftsApiUrl}`,
-      newDraft
+      newDraft,
     );
   }
 
@@ -25,9 +25,9 @@ export class DraftService {
         map((drafts) =>
           drafts.sort(
             (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          )
-        )
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          ),
+        ),
       );
   }
 

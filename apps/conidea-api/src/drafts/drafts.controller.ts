@@ -21,7 +21,7 @@ export class DraftsController {
     try {
       Logger.log(
         `Creating new Draft:  ${createDraftDto.title} ${createDraftDto.description}`,
-        DraftsController.name
+        DraftsController.name,
       );
       await this.draftsService.create(createDraftDto);
 
@@ -32,7 +32,7 @@ export class DraftsController {
     } catch (error) {
       Logger.error(
         `Error creating new draft: ${error.message}`,
-        DraftsController.name
+        DraftsController.name,
       );
     }
   }

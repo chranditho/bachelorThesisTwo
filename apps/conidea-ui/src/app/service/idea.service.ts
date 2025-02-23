@@ -23,37 +23,37 @@ export class IdeaService {
         map((ideas) =>
           ideas.sort(
             (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          )
-        )
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          ),
+        ),
       );
   }
 
   postIdea(newIdea: CreateIdeaDto) {
     return this.httpClient.post<{ message: string }>(
       `${this.apiUrl}/ideas/new`,
-      newIdea
+      newIdea,
     );
   }
 
   patchIdea$(changedStatusDto: ChangeStatusDto) {
     return this.httpClient.patch<Idea>(
       `${this.apiUrl}/ideas/update`,
-      changedStatusDto
+      changedStatusDto,
     );
   }
 
   createComment$(createCommentDto: CreateCommentDto) {
     return this.httpClient.post<Idea>(
       `${this.apiUrl}/ideas/comment`,
-      createCommentDto
+      createCommentDto,
     );
   }
 
   submitDraft$(draftId: string): Observable<Idea> {
     return this.httpClient.post<Idea>(
       `${this.apiUrl}/ideas/draft/${draftId}`,
-      {}
+      {},
     );
   }
 }

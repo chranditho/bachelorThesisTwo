@@ -5,9 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'conidea-back-button',
-    imports: [CommonModule, MatButtonModule, MatIconModule, RouterLink],
-    template: ` <button
+  selector: 'conidea-back-button',
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterLink],
+  template: ` <button
     mat-stroked-button
     color="primary"
     type="button"
@@ -20,10 +20,10 @@ import { RouterLink } from '@angular/router';
     ></mat-icon>
     Back
   </button>`,
-    styles: `
+  styles: `
     :host {
       @apply block;
     }
-  `
+  `,
 })
 export class BackButtonComponent {}

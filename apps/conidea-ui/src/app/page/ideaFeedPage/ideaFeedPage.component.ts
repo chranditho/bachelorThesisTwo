@@ -23,24 +23,24 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'conidea-idea-feed-page',
-    imports: [
-        CommonModule,
-        IdeaFeedComponent,
-        MatIconModule,
-        MatButtonModule,
-        RouterLink,
-        MatCardModule,
-        FormsModule,
-    ],
-    templateUrl: 'ideaFeedPage.component.html',
-    styles: [
-        `
+  selector: 'conidea-idea-feed-page',
+  imports: [
+    CommonModule,
+    IdeaFeedComponent,
+    MatIconModule,
+    MatButtonModule,
+    RouterLink,
+    MatCardModule,
+    FormsModule,
+  ],
+  templateUrl: 'ideaFeedPage.component.html',
+  styles: [
+    `
       :host {
         @apply block space-y-6;
       }
     `,
-    ]
+  ],
 })
 export class IdeaFeedPageComponent implements OnInit {
   protected readonly UserRole = UserRole;
@@ -54,7 +54,7 @@ export class IdeaFeedPageComponent implements OnInit {
     private ideaService: IdeaService,
     private draftService: DraftService,
     private roleService: RoleService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class IdeaFeedPageComponent implements OnInit {
           'Dismiss',
           {
             duration: 5000,
-          }
+          },
         ),
       complete: () =>
         this.snackBar
@@ -109,20 +109,20 @@ export class IdeaFeedPageComponent implements OnInit {
           'Dismiss',
           {
             duration: 5000,
-          }
+          },
         ),
     });
   }
 
   onStatusChange(changeStatus: ChangeStatusDto) {
     this.updateIdeas$(this.changeStatus$(changeStatus)).subscribe(
-      (updatedIdeas) => this.ideasSubject.next(updatedIdeas)
+      (updatedIdeas) => this.ideasSubject.next(updatedIdeas),
     );
   }
 
   onCommentCreation(createCommentDto: CreateCommentDto) {
     this.updateIdeas$(this.createComment$(createCommentDto)).subscribe(
-      (updatedIdeas) => this.ideasSubject.next(updatedIdeas)
+      (updatedIdeas) => this.ideasSubject.next(updatedIdeas),
     );
   }
 
@@ -135,13 +135,13 @@ export class IdeaFeedPageComponent implements OnInit {
   private updateIdeas$(idea$: Observable<Idea>) {
     return idea$.pipe(
       withLatestFrom(this.ideas$),
-      map(([newIdea, currentIdeas]) => this.addToIdeas(newIdea, currentIdeas))
+      map(([newIdea, currentIdeas]) => this.addToIdeas(newIdea, currentIdeas)),
     );
   }
 
   private addToIdeas(newIdea: Idea, currentIdeas: Idea[]) {
     const index = currentIdeas.findIndex(
-      (idea: Idea) => idea._id === newIdea._id
+      (idea: Idea) => idea._id === newIdea._id,
     );
 
     return index === -1

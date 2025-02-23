@@ -14,7 +14,7 @@ export class RoleService {
     return this.http
       .get<User[]>(this.apiUrl)
       .pipe(
-        map((users) => users.sort((a, b) => b.email.localeCompare(a.email)))
+        map((users) => users.sort((a, b) => b.email.localeCompare(a.email))),
       );
   }
 

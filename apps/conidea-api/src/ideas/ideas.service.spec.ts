@@ -110,7 +110,7 @@ describe('Status', () => {
     expect(model.findByIdAndUpdate).toHaveBeenCalledWith(
       changeStatusDto.ideaId,
       { status: changeStatusDto.status },
-      { new: true }
+      { new: true },
     );
     expect(result).toEqual(updatedIdea);
   });
