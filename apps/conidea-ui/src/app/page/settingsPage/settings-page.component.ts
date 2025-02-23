@@ -13,25 +13,24 @@ import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'conidea-settings-page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RoleSwitchComponent,
-    MatButtonModule,
-    MatIconModule,
-    RouterLink,
-    BackButtonComponent,
-    MatTabsModule,
-  ],
-  templateUrl: './settings-page.component.html',
-  styles: [
-    `
+    selector: 'conidea-settings-page',
+    imports: [
+        CommonModule,
+        RoleSwitchComponent,
+        MatButtonModule,
+        MatIconModule,
+        RouterLink,
+        BackButtonComponent,
+        MatTabsModule,
+    ],
+    templateUrl: './settings-page.component.html',
+    styles: [
+        `
       :host {
         @apply block space-y-2 sm:space-y-4 max-w-3xl mx-auto;
       }
     `,
-  ],
+    ]
 })
 export class SettingsPageComponent implements OnInit {
   users$!: Observable<User[]>;

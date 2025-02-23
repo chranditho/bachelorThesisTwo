@@ -19,18 +19,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DraftService } from '../../service/draft.service';
 
 @Component({
-  selector: 'conidea-add-idea-page',
-  standalone: true,
-  imports: [
-    QuillEditorComponent,
-    ReactiveFormsModule,
-    MatButtonModule,
-    RouterModule,
-    MatIconModule,
-    BackButtonComponent,
-    AsyncPipe,
-  ],
-  template: `
+    selector: 'conidea-add-idea-page',
+    imports: [
+        QuillEditorComponent,
+        ReactiveFormsModule,
+        MatButtonModule,
+        RouterModule,
+        MatIconModule,
+        BackButtonComponent,
+        AsyncPipe,
+    ],
+    template: `
     <article class="space-y-6">
       <conidea-back-button />
       <h1 class="text-center">What idea is on your mind?</h1>
@@ -74,13 +73,13 @@ import { DraftService } from '../../service/draft.service';
       }
     </article>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         @apply block space-y-6 max-w-3xl mx-auto;
       }
     `,
-  ],
+    ]
 })
 export class AddIdeaPageComponent implements OnInit, OnDestroy {
   user$!: Observable<User>;

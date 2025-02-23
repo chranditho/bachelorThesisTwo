@@ -1,0 +1,123 @@
+@use '@angular/material' as mat;
+@use './conidea_theme-colors' as conidea-theme-colors;
+@import '~quill/dist/quill.bubble.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --font-sans: Helvetica Neue, Arial, sans-serif;
+
+  --color-primary-50: #effafc;
+  --color-primary-100: #d6f1f7;
+  --color-primary-200: #b3e2ee;
+  --color-primary-300: #7ecde2;
+  --color-primary-400: #42aece;
+  --color-primary-500: #2692b4;
+  --color-primary-700: #22607c;
+  --color-primary-800: #245066;
+  --color-primary-900: #224457;
+  --color-primary-950: #112b3b;
+  --color-primary: #217090;
+
+  --color-secondary-50: #eefbfd;
+  --color-secondary-100: #d3f4fa;
+  --color-secondary-200: #ade9f4;
+  --color-secondary-400: #35bedb;
+  --color-secondary-500: #1aa1c0;
+  --color-secondary-600: #1881a2;
+  --color-secondary-700: #1a6984;
+  --color-secondary-800: #1e566c;
+  --color-secondary-900: #1d485c;
+  --color-secondary-950: #0e2f3e;
+  --color-secondary: #90e0ef;
+
+  --color-base-50: #eefaff;
+  --color-base-100: #dcf5ff;
+  --color-base-200: #b2edff;
+  --color-base-300: #6de1ff;
+  --color-base-400: #20d2ff;
+  --color-base-500: #00bdff;
+  --color-base-600: #0098df;
+  --color-base-700: #0079b4;
+  --color-base-800: #006695;
+  --color-base-900: #00547a;
+  --color-base: #00263a;
+
+  --color-status-accepted: #c7d64f;
+  --color-status-submitted: #a1daf8;
+  --color-status-inreview: #ef7f46;
+  --color-status-rejected: #ea516c;
+  --color-status-finished: #00263a;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+html {
+  @include mat.theme((
+    color: (
+      primary: conidea-theme-colors.$primary-palette,
+      tertiary: conidea-theme-colors.$tertiary-palette,
+      theme-type: light
+    ),
+    typography: Roboto,
+    density: 0
+  ));
+}
+
+@layer base {
+  html {
+    @apply text-base bg-slate-50;
+  }
+
+  body {
+    @apply container mx-auto py-12 lg:py-36 p-2;
+  }
+
+  header {
+    @apply underline decoration-primary text-6xl font-bold pb-2;
+  }
+
+  h1 {
+    @apply underline decoration-primary text-5xl font-bold pb-2;
+  }
+
+  h2 {
+    @apply underline decoration-primary text-4xl font-bold pb-2;
+  }
+
+  h3 {
+    @apply underline decoration-primary text-3xl font-bold pb-2;
+  }
+
+  h4 {
+    @apply underline decoration-primary text-2xl font-bold pb-2;
+  }
+
+  h5 {
+    @apply text-xl font-bold pb-2;
+  }
+
+  h6 {
+    @apply text-lg font-bold pb-2;
+  }
+}

@@ -4,10 +4,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'conidea-role-switch',
-  standalone: true,
-  imports: [CommonModule, MatSlideToggleModule, FormsModule],
-  template: `
+    selector: 'conidea-role-switch',
+    imports: [CommonModule, MatSlideToggleModule, FormsModule],
+    template: `
     <mat-slide-toggle
       [(ngModel)]="isToggleChecked"
       (change)="onChange()"
@@ -15,13 +14,13 @@ import { FormsModule } from '@angular/forms';
       >Reviewer-Mode
     </mat-slide-toggle>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         @apply block;
       }
     `,
-  ],
+    ]
 })
 export class RoleSwitchComponent {
   @Input({ required: true })

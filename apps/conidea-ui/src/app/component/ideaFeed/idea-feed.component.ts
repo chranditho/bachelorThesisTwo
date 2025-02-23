@@ -11,20 +11,19 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
-  selector: 'conidea-idea-feed',
-  standalone: true,
-  imports: [
-    CommonModule,
-    IdeaCardComponent,
-    MatButtonModule,
-    RouterLink,
-    MatIconModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatExpansionModule,
-    MatTabsModule,
-  ],
-  template: `
+    selector: 'conidea-idea-feed',
+    imports: [
+        CommonModule,
+        IdeaCardComponent,
+        MatButtonModule,
+        RouterLink,
+        MatIconModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatExpansionModule,
+        MatTabsModule,
+    ],
+    template: `
     <mat-tab-group>
       <mat-tab label="All Ideas">
         <section class="flex flex-col items-center gap-2 sm:gap-4 pt-4">
@@ -125,13 +124,13 @@ import { MatTabsModule } from '@angular/material/tabs';
       </mat-tab>
     </mat-tab-group>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         @apply block space-y-2 sm:space-y-4 max-w-3xl mx-auto;
       }
     `,
-  ],
+    ]
 })
 export class IdeaFeedComponent {
   @Input({ required: true })

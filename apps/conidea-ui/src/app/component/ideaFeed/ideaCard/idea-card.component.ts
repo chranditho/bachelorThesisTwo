@@ -8,26 +8,25 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'conidea-idea-card',
-  standalone: true,
-  imports: [
-    CommonModule,
-    IdeaStatusComponent,
-    MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule,
-  ],
-  templateUrl: './idea-card.component.html',
-  styles: [
-    `
+    selector: 'conidea-idea-card',
+    imports: [
+        CommonModule,
+        IdeaStatusComponent,
+        MatIconModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatButtonModule,
+    ],
+    templateUrl: './idea-card.component.html',
+    styles: [
+        `
       :host {
         @apply block rounded-xl bg-white p-6 w-full;
         word-wrap: break-word;
       }
     `,
-  ],
+    ]
 })
 export class IdeaCardComponent {
   @Input({ required: true })

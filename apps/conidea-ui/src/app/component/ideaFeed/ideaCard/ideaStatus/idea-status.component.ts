@@ -7,16 +7,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'conidea-idea-status',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    FormsModule,
-    MatInputModule,
-    MatSelectModule,
-  ],
-  templateUrl: 'idea-status.component.html',
+    selector: 'conidea-idea-status',
+    imports: [
+        CommonModule,
+        MatIconModule,
+        FormsModule,
+        MatInputModule,
+        MatSelectModule,
+    ],
+    templateUrl: 'idea-status.component.html'
 })
 export class IdeaStatusComponent {
   @Input({ required: true })

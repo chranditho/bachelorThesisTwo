@@ -20,8 +20,7 @@
           "apps/conidea-ui/src/assets"
         ],
         "styles": [
-          "apps/conidea-ui/src/conidea-theme.scss",
-          "apps/conidea-ui/src/styles.css"
+          "apps/conidea-ui/src/styles.scss"
         ],
         "scripts": []
       },
@@ -74,8 +73,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",

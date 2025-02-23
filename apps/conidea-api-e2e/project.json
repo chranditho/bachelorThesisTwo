@@ -1,8 +1,8 @@
 {
   "name": "conidea-api-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["conidea-api"],
   "projectType": "application",
+  "implicitDependencies": ["conidea-api"],
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",
@@ -12,8 +12,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     }
   }
 }

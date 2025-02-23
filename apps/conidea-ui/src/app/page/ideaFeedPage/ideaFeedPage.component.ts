@@ -23,25 +23,24 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'conidea-idea-feed-page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    IdeaFeedComponent,
-    MatIconModule,
-    MatButtonModule,
-    RouterLink,
-    MatCardModule,
-    FormsModule,
-  ],
-  templateUrl: 'ideaFeedPage.component.html',
-  styles: [
-    `
+    selector: 'conidea-idea-feed-page',
+    imports: [
+        CommonModule,
+        IdeaFeedComponent,
+        MatIconModule,
+        MatButtonModule,
+        RouterLink,
+        MatCardModule,
+        FormsModule,
+    ],
+    templateUrl: 'ideaFeedPage.component.html',
+    styles: [
+        `
       :host {
         @apply block space-y-6;
       }
     `,
-  ],
+    ]
 })
 export class IdeaFeedPageComponent implements OnInit {
   protected readonly UserRole = UserRole;
