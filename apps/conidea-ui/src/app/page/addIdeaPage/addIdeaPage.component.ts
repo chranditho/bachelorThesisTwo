@@ -50,7 +50,7 @@ import { DraftService } from '../../service/draft.service';
           <div class="flex gap-4">
             <button
               id="submit"
-              mat-raised-button
+              mat-flat-button
               color="primary"
               type="submit"
               [disabled]="ideaForm.invalid"
@@ -60,8 +60,7 @@ import { DraftService } from '../../service/draft.service';
             </button>
             <button
               id="save"
-              mat-stroked-button
-              color="primary"
+              mat-button
               type="submit"
               [disabled]="ideaForm.invalid"
               (click)="onSave(user._id)"

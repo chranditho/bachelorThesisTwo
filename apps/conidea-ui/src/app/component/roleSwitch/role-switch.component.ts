@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
     <mat-slide-toggle
       [(ngModel)]="isToggleChecked"
       (change)="onChange()"
-      color="primary"
       >Reviewer-Mode
     </mat-slide-toggle>
   `,

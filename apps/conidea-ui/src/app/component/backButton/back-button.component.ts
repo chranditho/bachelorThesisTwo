@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, MatButtonModule, MatIconModule, RouterLink],
   template: ` <button
     mat-stroked-button
-    color="primary"
     type="button"
     routerLink="../"
   >

@@ -10,7 +10,6 @@
   </button>
   <button
     aria-label="add a new idea"
-    color="primary"
     id="navigateToAddPage"
     mat-fab
     routerLink="add"
@@ -54,8 +53,7 @@
             Edit
           </button>
           <button
-            mat-raised-button
-            color="primary"
+            mat-flat-button
             (click)="
               submitDraft(draft._id, {
                 title: draft.title,
@@ -67,12 +65,11 @@
             Submit
           </button>
         } @else {
-          <button mat-button color="warn" (click)="deleteDraft(draft._id)">
-            Delete
+          <button mat-button (click)="deleteDraft(draft._id)">
+            <span class="text-status-rejected">Delete</span>
           </button>
           <button
-            mat-stroked-button
-            color="primary"
+            mat-flat-button
             (click)="
               updateDraft(draft._id, {
                 title: draft.title,
