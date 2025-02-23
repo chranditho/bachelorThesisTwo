@@ -132,7 +132,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   styles: [
     `
       :host {
-        @apply block space-y-2 sm:space-y-4 max-w-3xl mx-auto;
+        @apply block space-y-2 sm:space-y-4 mx-auto;
       }
     `,
   ],
