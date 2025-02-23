@@ -7,11 +7,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'conidea-back-button',
   imports: [CommonModule, MatButtonModule, MatIconModule, RouterLink],
-  template: ` <button
-    mat-stroked-button
-    type="button"
-    routerLink="../"
-  >
+  template: ` <button mat-stroked-button type="button" routerLink="../">
     <mat-icon
       aria-hidden="false"
       aria-label="Arrow Back"

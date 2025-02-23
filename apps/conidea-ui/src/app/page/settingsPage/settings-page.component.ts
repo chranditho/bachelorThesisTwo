@@ -25,7 +25,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styles: [
     `
       :host {
-        @apply block space-y-2 sm:space-y-4 max-w-3xl mx-auto;
+        @apply mx-auto block max-w-3xl space-y-2 sm:space-y-4;
       }
     `,
   ],

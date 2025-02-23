@@ -22,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
   styles: [
     `
       :host {
-        @apply block rounded-xl bg-white p-6 w-full;
+        @apply block w-full rounded-xl bg-white p-6;
         word-wrap: break-word;
       }
     `,

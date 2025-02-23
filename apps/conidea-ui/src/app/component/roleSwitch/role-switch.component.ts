@@ -7,9 +7,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'conidea-role-switch',
   imports: [CommonModule, MatSlideToggleModule, FormsModule],
   template: `
-    <mat-slide-toggle
-      [(ngModel)]="isToggleChecked"
-      (change)="onChange()"
+    <mat-slide-toggle [(ngModel)]="isToggleChecked" (change)="onChange()"
       >Reviewer-Mode
     </mat-slide-toggle>
   `,

@@ -36,13 +36,13 @@ import { DraftService } from '../../service/draft.service';
       @if (user$ | async; as user) {
         <form [formGroup]="ideaForm" class="flex flex-col items-center gap-8">
           <input
-            class="w-full bg-secondary rounded-lg p-4 font-bold placeholder:italic placeholder:text-primary"
+            class="bg-secondary placeholder:text-primary w-full rounded-lg p-4 font-bold placeholder:italic"
             [formControlName]="'title'"
             placeholder="title"
           />
           <quill-editor
             id="description"
-            class="w-full bg-secondary rounded-lg h-96"
+            class="bg-secondary h-96 w-full rounded-lg"
             [formControlName]="'description'"
             placeholder="description"
           >
@@ -75,7 +75,7 @@ import { DraftService } from '../../service/draft.service';
   styles: [
     `
       :host {
-        @apply block space-y-6 max-w-3xl mx-auto;
+        @apply mx-auto block max-w-3xl space-y-6;
       }
     `,
   ],

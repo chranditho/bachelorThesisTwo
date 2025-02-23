@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styles: [
     `
       :host {
-        @apply block w-full border-2 border-yellow-300 rounded-xl p-3 border-dashed;
+        @apply block w-full rounded-xl border-2 border-dashed border-yellow-300 p-3;
       }
     `,
   ],

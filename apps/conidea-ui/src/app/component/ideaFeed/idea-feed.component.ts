@@ -24,27 +24,27 @@ import { MatTabsModule } from '@angular/material/tabs';
   template: `
     <mat-tab-group>
       <mat-tab label="All Ideas">
-        <section class="flex flex-col items-center gap-2 sm:gap-4 pt-4">
+        <section class="flex flex-col items-center gap-2 pt-4 sm:gap-4">
           @for (idea of ideas; track idea._id) {
             <div
-              class="w-full rounded-xl border bg-white divide-y divide-dashed"
+              class="w-full divide-y divide-dashed rounded-xl border bg-white"
             >
               <conidea-idea-card
                 [idea]="idea"
                 [isStatusChangeable]="isStatusChangeable"
                 (statusChange)="onStatusChange($event)"
               />
-              <article class="w-full p-4 flex flex-col gap-4">
+              <article class="flex w-full flex-col gap-4 p-4">
                 <mat-accordion>
                   <mat-expansion-panel hideToggle>
                     <mat-expansion-panel-header>
                       <mat-panel-title
-                        ><h6 class="text-center w-full">
+                        ><h6 class="w-full text-center">
                           Comments
                         </h6></mat-panel-title
                       >
                     </mat-expansion-panel-header>
-                    <div class="w-full flex flex-col gap-2">
+                    <div class="flex w-full flex-col gap-2">
                       @for (comment of idea.comments; track comment) {
                         <mat-card>
                           <mat-card-content class="text-sm"
@@ -63,7 +63,7 @@ import { MatTabsModule } from '@angular/material/tabs';
                   >
                     <input
                       [formControlName]="'text'"
-                      class="w-full bg-slate-100 rounded-lg p-4 placeholder:text-primary"
+                      class="placeholder:text-primary w-full rounded-lg bg-slate-100 p-4"
                       placeholder="new comment"
                     />
                   </form>
@@ -74,28 +74,28 @@ import { MatTabsModule } from '@angular/material/tabs';
         </section>
       </mat-tab>
       <mat-tab label="My Ideas">
-        <section class="flex flex-col items-center gap-2 sm:gap-4 pt-4">
+        <section class="flex flex-col items-center gap-2 pt-4 sm:gap-4">
           @if (ideaFilter(ideas).length > 0) {
             @for (idea of ideaFilter(ideas); track idea._id) {
               <div
-                class="w-full rounded-xl border bg-white divide-y divide-dashed"
+                class="w-full divide-y divide-dashed rounded-xl border bg-white"
               >
                 <conidea-idea-card
                   [idea]="idea"
                   [isStatusChangeable]="isStatusChangeable"
                   (statusChange)="onStatusChange($event)"
                 />
-                <article class="w-full p-4 flex flex-col gap-4">
+                <article class="flex w-full flex-col gap-4 p-4">
                   <mat-accordion>
                     <mat-expansion-panel hideToggle>
                       <mat-expansion-panel-header>
                         <mat-panel-title
-                          ><h6 class="text-center w-full">
+                          ><h6 class="w-full text-center">
                             Comments
                           </h6></mat-panel-title
                         >
                       </mat-expansion-panel-header>
-                      <div class="w-full flex flex-col gap-2">
+                      <div class="flex w-full flex-col gap-2">
                         @for (comment of idea.comments; track comment) {
                           <mat-card>
                             <mat-card-content class="text-sm"
@@ -114,7 +114,7 @@ import { MatTabsModule } from '@angular/material/tabs';
                     >
                       <input
                         [formControlName]="'text'"
-                        class="w-full bg-slate-100 rounded-lg p-4 placeholder:text-primary"
+                        class="placeholder:text-primary w-full rounded-lg bg-slate-100 p-4"
                         placeholder="new comment"
                       />
                     </form>
@@ -132,7 +132,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   styles: [
     `
       :host {
-        @apply block space-y-2 sm:space-y-4 mx-auto;
+        @apply mx-auto block space-y-2 sm:space-y-4;
       }
     `,
   ],

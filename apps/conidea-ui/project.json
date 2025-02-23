@@ -8,25 +8,19 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": [
-        "{options.outputPath.base}"
-      ],
+      "outputs": ["{options.outputPath.base}"],
       "options": {
         "outputPath": {
           "base": "dist/apps/conidea-ui"
         },
         "index": "apps/conidea-ui/src/index.html",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/conidea-ui/tsconfig.app.json",
         "assets": [
           "apps/conidea-ui/src/favicon.ico",
           "apps/conidea-ui/src/assets"
         ],
-        "styles": [
-          "apps/conidea-ui/src/styles.scss"
-        ],
+        "styles": ["apps/conidea-ui/src/styles.scss"],
         "scripts": [],
         "browser": "apps/conidea-ui/src/main.ts"
       },
@@ -84,9 +78,7 @@
         "{workspaceRoot}/eslint.config.js",
         "{workspaceRoot}/eslint.config.mjs",
         {
-          "externalDependencies": [
-            "eslint"
-          ]
+          "externalDependencies": ["eslint"]
         }
       ]
     },
@@ -96,9 +88,7 @@
         "^production",
         "{workspaceRoot}/jest.preset.js",
         {
-          "externalDependencies": [
-            "jest"
-          ]
+          "externalDependencies": ["jest"]
         }
       ],
       "options": {
