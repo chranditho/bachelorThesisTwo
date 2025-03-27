@@ -20,7 +20,7 @@ export class IdeasService {
   constructor(@InjectModel(Idea.name) private ideaModel: Model<Idea>) {}
 
   async findAll(): Promise<Idea[]> {
-    return this.ideaModel.find().populate('author').exec();
+    return this.ideaModel.find().exec();
   }
 
   async create(createIdeaDto: CreateIdeaDto): Promise<void> {

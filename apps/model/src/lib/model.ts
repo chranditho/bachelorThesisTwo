@@ -48,6 +48,11 @@ export interface UserDto {
   isLoggedIn: boolean;
 }
 
+export interface Author {
+  id: string;
+  name: string;
+}
+
 export interface DraftDto extends CreateIdeaDto {
   _id: string;
   createdAt: Date;

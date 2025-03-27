@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Status } from '@conidea/model';
-import { Types } from 'mongoose';
+import { Author, Status } from '@conidea/model';
 
 @Schema()
 export class Idea {
@@ -10,8 +9,8 @@ export class Idea {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ type: Types.ObjectId, ref: 'User' })
-  author: Types.ObjectId;
+  @Prop({ required: true, type: Object })
+  author: Author;
 
   @Prop({ required: false, type: Date, default: Date.now })
   createdAt: Date;
