@@ -5,6 +5,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
+import { UserRole } from '@conidea/model';
 
 @Injectable()
 export class UserService {
@@ -23,5 +24,19 @@ export class UserService {
 
   async findAll() {
     return firstValueFrom(this.client.send({ cmd: 'get_all_users' }, {}));
+  }
+
+  async getLoggedIn() {
+    return firstValueFrom(this.client.send({ cmd: 'get_loggedIn' }, {}));
+  }
+
+  async logIn(id: string) {
+    return firstValueFrom(this.client.send({ cmd: 'log_in' }, { id }));
+  }
+
+  async switchUserRole(id: string, role: UserRole) {
+    return firstValueFrom(
+      this.client.send({ cmd: 'switch_role' }, { id, role }),
+    );
   }
 }
