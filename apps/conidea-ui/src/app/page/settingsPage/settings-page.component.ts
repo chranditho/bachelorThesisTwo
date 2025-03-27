@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RoleSwitchComponent } from '../../component/roleSwitch/role-switch.component';
 import { RoleService } from '../../service/role.service';
 import { Observable, tap } from 'rxjs';
-import { User, UserRole } from '@conidea/model';
+import { UserDto, UserRole } from '@conidea/model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BackButtonComponent } from '../../component/backButton/back-button.component';
@@ -31,7 +31,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   ],
 })
 export class SettingsPageComponent implements OnInit {
-  users$!: Observable<User[]>;
+  users$!: Observable<UserDto[]>;
   protected selectedTab = new FormControl(0);
   protected readonly UserRole = UserRole;
 
@@ -52,15 +52,15 @@ export class SettingsPageComponent implements OnInit {
     );
   }
 
-  getLoggedInUserIndex(users: User[]): number {
+  getLoggedInUserIndex(users: UserDto[]): number {
     return users.findIndex((user) => user.isLoggedIn);
   }
 
-  logInUser(users: User[], tabIndex: number) {
+  logInUser(users: UserDto[], tabIndex: number) {
     if (tabIndex >= 0 && tabIndex < users.length) {
-      const selectedUser: User = users[tabIndex];
+      const selectedUser: UserDto = users[tabIndex];
 
-      this.roleService.logIn(selectedUser._id).subscribe({
+      this.roleService.logIn(selectedUser.id).subscribe({
         next: (user) =>
           this.showSnackBar(`Logged in as ${user.email}`, 'success-snackbar'),
         error: () => this.showSnackBar('Error logging in', 'error-snackbar'),
@@ -84,7 +84,7 @@ export class SettingsPageComponent implements OnInit {
     });
   }
 
-  getFullname(user: User) {
+  getFullname(user: UserDto) {
     return `${user.firstname} ${user.lastname}`;
   }
 

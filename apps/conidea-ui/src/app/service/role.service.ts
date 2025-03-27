@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { User, UserRole } from '@conidea/model';
+import { UserDto, UserRole } from '@conidea/model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,24 +11,24 @@ export class RoleService {
 
   constructor(private http: HttpClient) {}
 
-  getAllUsersSortedByEmail(): Observable<User[]> {
+  getAllUsersSortedByEmail(): Observable<UserDto[]> {
     return this.http
-      .get<User[]>(this.apiUrl)
+      .get<UserDto[]>(this.apiUrl)
       .pipe(
         map((users) => users.sort((a, b) => b.email.localeCompare(a.email))),
       );
   }
 
   getCurrentUser() {
-    return this.http.get<User>(`${this.apiUrl}/current`);
+    return this.http.get<UserDto>(`${this.apiUrl}/current`);
   }
 
   logIn(userId: string) {
-    return this.http.put<User>(`${this.apiUrl}/${userId}/login`, {});
+    return this.http.put<UserDto>(`${this.apiUrl}/${userId}/login`, {});
   }
 
-  switchUserRole(userId: string, newRole: UserRole): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${userId}/role`, {
+  switchUserRole(userId: string, newRole: UserRole): Observable<UserDto> {
+    return this.http.put<UserDto>(`${this.apiUrl}/${userId}/role`, {
       role: newRole,
     });
   }

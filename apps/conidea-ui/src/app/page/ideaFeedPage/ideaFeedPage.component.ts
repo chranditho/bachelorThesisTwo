@@ -9,7 +9,7 @@ import {
   DraftDto,
   Idea,
   UpdateDraftDto,
-  User,
+  UserDto,
   UserRole,
 } from '@conidea/model';
 import { IdeaService } from '../../service/idea.service';
@@ -44,7 +44,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class IdeaFeedPageComponent implements OnInit {
   drafts$!: Observable<DraftDto[]>;
-  user$!: Observable<User>;
+  user$!: Observable<UserDto>;
   isEditing: { [key: string]: boolean } = {};
   protected readonly UserRole = UserRole;
   private ideasSubject = new BehaviorSubject<Idea[]>([]);

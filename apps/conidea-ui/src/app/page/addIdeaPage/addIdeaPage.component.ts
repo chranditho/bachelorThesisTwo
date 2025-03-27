@@ -11,7 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 import { IdeaService } from '../../service/idea.service';
 import { Observable, Subscription } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import { CreateDraftDto, CreateIdeaDto, User } from '@conidea/model';
+import { CreateDraftDto, CreateIdeaDto, UserDto } from '@conidea/model';
 import { BackButtonComponent } from '../../component/backButton/back-button.component';
 import { RoleService } from '../../service/role.service';
 import { AsyncPipe } from '@angular/common';
@@ -54,7 +54,7 @@ import { DraftService } from '../../service/draft.service';
               color="primary"
               type="submit"
               [disabled]="ideaForm.invalid"
-              (click)="onSubmit(user._id)"
+              (click)="onSubmit(user.id)"
             >
               Submit
             </button>
@@ -63,7 +63,7 @@ import { DraftService } from '../../service/draft.service';
               mat-button
               type="submit"
               [disabled]="ideaForm.invalid"
-              (click)="onSave(user._id)"
+              (click)="onSave(user.id)"
             >
               Save as draft
             </button>
@@ -81,7 +81,7 @@ import { DraftService } from '../../service/draft.service';
   ],
 })
 export class AddIdeaPageComponent implements OnInit, OnDestroy {
-  user$!: Observable<User>;
+  user$!: Observable<UserDto>;
   ideaForm = new FormGroup({
     title: new FormControl('', { nonNullable: true }),
     description: new FormControl('', {

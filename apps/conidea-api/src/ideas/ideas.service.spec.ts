@@ -2,10 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { IdeasService } from './ideas.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Idea, Status, User, UserRole } from '@conidea/model';
+import { Idea, Status, UserDto, UserRole } from '@conidea/model';
 
-const mockUser: User = {
-  _id: new Types.ObjectId().toHexString(),
+const mockUser: UserDto = {
+  id: new Types.ObjectId().toHexString(),
   email: 'mattheu_smothersrb4@accessing.zvm',
   firstname: 'Theodis',
   lastname: 'Bugarin',
@@ -18,7 +18,7 @@ const mockIdea: Idea = {
   title: 'idea',
   description: 'Hello!',
   author: mockUser,
-  userId: mockUser._id,
+  userId: mockUser.id,
   comments: [
     'Gui implied thought roof lancaster ratios toshiba, density passion controllers oriented bird practices phoenix, counting punishment rolled undertaken discovery requirements wondering, subjects conclude oxide collect mats beneath tier. ',
   ],
