@@ -11,11 +11,11 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { IdeasService } from './ideas.service';
-import { Idea } from './schemas/idea.schema';
 import {
   ChangeStatusDto,
   CreateCommentDto,
   CreateIdeaDto,
+  Idea,
 } from '@conidea/model';
 
 @Controller('ideas')

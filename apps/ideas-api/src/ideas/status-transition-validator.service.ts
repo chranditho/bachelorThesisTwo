@@ -3,7 +3,7 @@ import { Status } from '@conidea/model';
 
 @Injectable()
 export class StatusTransitionValidatorService {
-  static checkStatusTransitionValidity(from: Status, to: Status): boolean {
+  static checkStatusTransitionValidity(from: Status, to: never): boolean {
     return this.validTransitions()[from].includes(to);
   }
 

@@ -1,0 +1,50 @@
+{
+  "name": "ideas-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ideas-api/src",
+  "projectType": "application",
+  "tags": ["domain:ideas"],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/ideas-api",
+        "main": "apps/ideas-api/src/main.ts",
+        "tsConfig": "apps/ideas-api/tsconfig.app.json",
+        "assets": ["apps/ideas-api/src/assets"],
+        "webpackConfig": "apps/ideas-api/webpack.config.js",
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "ideas-api:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ideas-api:build:development"
+        },
+        "production": {
+          "buildTarget": "ideas-api:build:production"
+        }
+      }
+    },
+    "test": {
+      "options": {
+        "passWithNoTests": true
+      }
+    }
+  }
+}
