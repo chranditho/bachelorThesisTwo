@@ -21,6 +21,7 @@
     "@nestjs/microservices": "^11.0.10",
     "@nestjs/mongoose": "^11.0.1",
     "@nestjs/platform-express": "^11.0.10",
+    "@nestjs/swagger": "^11.0.6",
     "@tailwindcss/postcss": "^4.0.8",
     "@types/quill": "^2.0.14",
     "amqp-connection-manager": "^4.1.14",
