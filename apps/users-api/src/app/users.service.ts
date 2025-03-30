@@ -39,7 +39,7 @@ export class UserService implements OnModuleInit {
 
     return users.map(
       (user): UserDto => ({
-        id: user.id as string,
+        _id: user.id as string,
         email: user.email,
         firstname: user.firstname,
         lastname: user.lastname,

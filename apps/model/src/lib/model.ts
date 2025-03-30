@@ -2,9 +2,8 @@ export function model(): string {
   return 'model';
 }
 
-export interface Idea extends CreateIdeaDto {
+export interface IdeaDto extends CreateIdeaDto {
   _id: string;
-  author: UserDto;
   status: Status;
   comments: string[];
   createdAt: Date;
@@ -13,7 +12,10 @@ export interface Idea extends CreateIdeaDto {
 export interface CreateIdeaDto {
   title: string;
   description: string;
-  userId: string;
+  author: {
+    userId: string;
+    name: string;
+  };
 }
 
 export interface ChangeStatusDto {
@@ -40,7 +42,7 @@ export enum UserRole {
 }
 
 export interface UserDto {
-  id: string;
+  _id: string;
   email: string;
   firstname: string;
   lastname?: string;

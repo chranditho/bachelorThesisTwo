@@ -15,7 +15,7 @@ import {
   ChangeStatusDto,
   CreateCommentDto,
   CreateIdeaDto,
-  Idea,
+  IdeaDto,
 } from '@conidea/model';
 
 @Controller('ideas')
@@ -23,7 +23,7 @@ export class IdeasController {
   constructor(private readonly ideasService: IdeasService) {}
 
   @Get()
-  findAll(): Promise<Idea[]> {
+  findAll(): Promise<IdeaDto[]> {
     Logger.log('Getting all ideas', IdeasController.name);
     return this.ideasService.findAll();
   }
@@ -38,6 +38,7 @@ export class IdeasController {
         `Creating new Idea: ${createIdeaDto.title} ${createIdeaDto.description}`,
         IdeasController.name,
       );
+      Logger.debug(createIdeaDto);
 
       await this.ideasService.create(createIdeaDto);
 
@@ -65,13 +66,17 @@ export class IdeasController {
   }
 
   @Patch('update')
-  async updateStatus(@Body() changeStatusDto: ChangeStatusDto): Promise<Idea> {
+  async updateStatus(
+    @Body() changeStatusDto: ChangeStatusDto,
+  ): Promise<IdeaDto> {
     return this.ideasService.updateStatus(changeStatusDto);
   }
 
   @Post('comment')
   @UsePipes(new ValidationPipe({ transform: true }))
-  async addComment(@Body() createCommentDto: CreateCommentDto): Promise<Idea> {
+  async addComment(
+    @Body() createCommentDto: CreateCommentDto,
+  ): Promise<IdeaDto> {
     return this.ideasService.addComment(createCommentDto);
   }
 }

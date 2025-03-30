@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeStatusDto, Idea, Status } from '@conidea/model';
+import { ChangeStatusDto, IdeaDto, Status } from '@conidea/model';
 import { MatIconModule } from '@angular/material/icon';
 import { IdeaStatusComponent } from './ideaStatus/idea-status.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,7 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class IdeaCardComponent {
   @Input({ required: true })
-  idea!: Idea;
+  idea!: IdeaDto;
 
   @Input({ required: true })
   isStatusChangeable!: boolean;

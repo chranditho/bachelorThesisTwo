@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { CreateIdeaDto, Idea } from '@conidea/model';
+import { CreateIdeaDto, IdeaDto } from '@conidea/model';
 import { Types } from 'mongoose';
 
 const apiUrl = process.env.API_URL || 'http://localhost:3000/api';
@@ -26,10 +26,10 @@ describe('POST api/ideas/new', () => {
 });
 
 describe('GET /api/ideas', () => {
-  let response: AxiosResponse<Idea[]>;
+  let response: AxiosResponse<IdeaDto[]>;
 
   beforeAll(async () => {
-    response = await axios.get<Idea[]>(`${apiUrl}/ideas`);
+    response = await axios.get<IdeaDto[]>(`${apiUrl}/ideas`);
   });
 
   it('should return a 200 status code', () => {

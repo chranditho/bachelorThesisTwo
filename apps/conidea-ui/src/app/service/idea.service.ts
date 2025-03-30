@@ -4,7 +4,7 @@ import {
   ChangeStatusDto,
   CreateCommentDto,
   CreateIdeaDto,
-  Idea,
+  IdeaDto,
 } from '@conidea/model';
 import { map, Observable } from 'rxjs';
 
@@ -16,9 +16,9 @@ export class IdeaService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getIdeas(): Observable<Idea[]> {
+  getIdeas(): Observable<IdeaDto[]> {
     return this.httpClient
-      .get<Idea[]>(`${this.apiUrl}/ideas`)
+      .get<IdeaDto[]>(`${this.apiUrl}/ideas`)
       .pipe(
         map((ideas) =>
           ideas.sort(
@@ -37,21 +37,21 @@ export class IdeaService {
   }
 
   patchIdea$(changedStatusDto: ChangeStatusDto) {
-    return this.httpClient.patch<Idea>(
+    return this.httpClient.patch<IdeaDto>(
       `${this.apiUrl}/ideas/update`,
       changedStatusDto,
     );
   }
 
   createComment$(createCommentDto: CreateCommentDto) {
-    return this.httpClient.post<Idea>(
+    return this.httpClient.post<IdeaDto>(
       `${this.apiUrl}/ideas/comment`,
       createCommentDto,
     );
   }
 
-  submitDraft$(draftId: string): Observable<Idea> {
-    return this.httpClient.post<Idea>(
+  submitDraft$(draftId: string): Observable<IdeaDto> {
+    return this.httpClient.post<IdeaDto>(
       `${this.apiUrl}/ideas/draft/${draftId}`,
       {},
     );

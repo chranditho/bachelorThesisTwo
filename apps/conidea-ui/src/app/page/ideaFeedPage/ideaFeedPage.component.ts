@@ -7,7 +7,7 @@ import {
   CreateCommentDto,
   CreateIdeaDto,
   DraftDto,
-  Idea,
+  IdeaDto,
   UpdateDraftDto,
   UserDto,
   UserRole,
@@ -47,7 +47,7 @@ export class IdeaFeedPageComponent implements OnInit {
   user$!: Observable<UserDto>;
   isEditing: { [key: string]: boolean } = {};
   protected readonly UserRole = UserRole;
-  private ideasSubject = new BehaviorSubject<Idea[]>([]);
+  private ideasSubject = new BehaviorSubject<IdeaDto[]>([]);
   ideas$ = this.ideasSubject.asObservable();
 
   constructor(
@@ -133,16 +133,16 @@ export class IdeaFeedPageComponent implements OnInit {
   private createComment$ = (createCommentDto: CreateCommentDto) =>
     this.ideaService.createComment$(createCommentDto);
 
-  private updateIdeas$(idea$: Observable<Idea>) {
+  private updateIdeas$(idea$: Observable<IdeaDto>) {
     return idea$.pipe(
       withLatestFrom(this.ideas$),
       map(([newIdea, currentIdeas]) => this.addToIdeas(newIdea, currentIdeas)),
     );
   }
 
-  private addToIdeas(newIdea: Idea, currentIdeas: Idea[]) {
+  private addToIdeas(newIdea: IdeaDto, currentIdeas: IdeaDto[]) {
     const index = currentIdeas.findIndex(
-      (idea: Idea) => idea._id === newIdea._id,
+      (idea: IdeaDto) => idea._id === newIdea._id,
     );
 
     return index === -1

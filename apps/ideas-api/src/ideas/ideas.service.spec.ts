@@ -2,10 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { IdeasService } from './ideas.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Idea, Status, UserDto, UserRole } from '@conidea/model';
+import { IdeaDto, Status, UserDto, UserRole } from '@conidea/model';
 
 const mockUser: UserDto = {
-  id: new Types.ObjectId().toHexString(),
+  _id: new Types.ObjectId().toHexString(),
   email: 'mattheu_smothersrb4@accessing.zvm',
   firstname: 'Theodis',
   lastname: 'Bugarin',
@@ -13,12 +13,12 @@ const mockUser: UserDto = {
   isLoggedIn: true,
 };
 
-const mockIdea: Idea = {
+const mockIdea: IdeaDto = {
   _id: new Types.ObjectId().toHexString(),
   title: 'idea',
   description: 'Hello!',
   author: mockUser,
-  userId: mockUser.id,
+  userId: mockUser._id,
   comments: [
     'Gui implied thought roof lancaster ratios toshiba, density passion controllers oriented bird practices phoenix, counting punishment rolled undertaken discovery requirements wondering, subjects conclude oxide collect mats beneath tier. ',
   ],
@@ -28,7 +28,7 @@ const mockIdea: Idea = {
 
 describe('Ideas', () => {
   let service: IdeasService;
-  let model: Model<Idea>;
+  let model: Model<IdeaDto>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -52,7 +52,7 @@ describe('Ideas', () => {
     }).compile();
 
     service = module.get<IdeasService>(IdeasService);
-    model = module.get<Model<Idea>>(getModelToken('Idea'));
+    model = module.get<Model<IdeaDto>>(getModelToken('Idea'));
   });
 
   it('should return all ideas', async () => {
@@ -65,7 +65,7 @@ describe('Ideas', () => {
 
 describe('Status', () => {
   let service: IdeasService;
-  let model: Model<Idea>;
+  let model: Model<IdeaDto>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -91,7 +91,7 @@ describe('Status', () => {
     }).compile();
 
     service = module.get<IdeasService>(IdeasService);
-    model = module.get<Model<Idea>>(getModelToken('Idea'));
+    model = module.get<Model<IdeaDto>>(getModelToken('Idea'));
   });
 
   const changeStatusDto = {

@@ -11,6 +11,9 @@ import {
   CreateCommentDto,
   CreateDraftDto,
   CreateIdeaDto,
+  IdeaDto,
+  UserDto,
+  UserRole,
 } from '@conidea/model';
 import { StatusTransitionValidatorService } from './status-transition-validator.service';
 import { Idea } from './ideas.schema';
@@ -19,15 +22,37 @@ import { Idea } from './ideas.schema';
 export class IdeasService {
   constructor(@InjectModel(Idea.name) private ideaModel: Model<Idea>) {}
 
-  async findAll(): Promise<Idea[]> {
-    return this.ideaModel.find().exec();
+  async findAll(): Promise<IdeaDto[]> {
+    const ideas = await this.ideaModel.find().exec();
+    return ideas.map((idea) => {
+      const author: UserDto = {
+        _id: idea.author.id,
+        email: 'email',
+        firstname: 'firstname',
+        role: UserRole.User,
+        isLoggedIn: false,
+      };
+      const dto: IdeaDto = {
+        _id: idea.id,
+        title: idea.title,
+        description: idea.description,
+        status: idea.status,
+        author: {
+          userId: idea.author.id,
+          name: idea.author.name,
+        },
+        comments: idea.comments,
+        createdAt: idea.createdAt,
+      };
+      return dto;
+    });
   }
 
   async create(createIdeaDto: CreateIdeaDto): Promise<void> {
     try {
       await this.ideaModel.create({
         ...createIdeaDto,
-        author: createIdeaDto.userId,
+        author: createIdeaDto.author,
       });
     } catch (error) {
       Logger.error(error, IdeasService.name);
@@ -43,7 +68,6 @@ export class IdeasService {
         { status: changeStatusDto.status },
         { new: true },
       )
-      .populate('author')
       .exec();
   }
 
@@ -68,7 +92,7 @@ export class IdeasService {
       { $push: { comments: createCommentDto.comment } },
     );
 
-    return this.ideaModel.findById(createCommentDto.ideaId).populate('author');
+    return this.ideaModel.findById(createCommentDto.ideaId);
   }
 
   async submitDraft(createDraftDto: CreateDraftDto) {
@@ -83,11 +107,10 @@ export class IdeasService {
 
   private async createFromDraft(createDraftDto: CreateDraftDto) {
     try {
-      const ideaModel = await this.ideaModel.create({
+      return await this.ideaModel.create({
         ...createDraftDto,
         author: createDraftDto.userId,
       });
-      return ideaModel.populate('author');
     } catch (error) {
       Logger.error(error, IdeasService.name);
     }

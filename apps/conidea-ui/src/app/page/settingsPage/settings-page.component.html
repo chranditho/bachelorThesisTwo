@@ -10,12 +10,12 @@
       [selectedIndex]="selectedTab.value"
       (selectedTabChange)="logInUser(users, $event.index)"
     >
-      @for (user of users; track user.id) {
+      @for (user of users; track user._id) {
         <mat-tab [label]="getFullname(user)" (focus)="(user.isLoggedIn)">
           <div class="p-4">
             <conidea-role-switch
               [isToggleChecked]="user.role === UserRole.Reviewer"
-              (toggleChecked)="switchRole($event, user.id)"
+              (toggleChecked)="switchRole($event, user._id)"
             />
           </div>
         </mat-tab>

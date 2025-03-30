@@ -3,7 +3,7 @@ import {
   ChangeStatusDto,
   CreateCommentDto,
   CreateIdeaDto,
-  Idea,
+  IdeaDto,
 } from '@conidea/model';
 import {
   ClientProxy,
@@ -27,23 +27,23 @@ export class IdeasService {
     });
   }
 
-  async findAll(): Promise<Idea[]> {
+  async findAll(): Promise<IdeaDto[]> {
     return firstValueFrom(this.client.send({ cmd: 'get_all_ideas' }, {}));
   }
 
   async create(createIdeaDto: CreateIdeaDto): Promise<void> {
-    return firstValueFrom(
+    await firstValueFrom(
       this.client.send({ cmd: 'create_idea' }, createIdeaDto),
     );
   }
 
-  async updateStatus(changeStatusDto: ChangeStatusDto): Promise<Idea> {
+  async updateStatus(changeStatusDto: ChangeStatusDto): Promise<IdeaDto> {
     return firstValueFrom(
       this.client.send({ cmd: 'update_status' }, changeStatusDto),
     );
   }
 
-  async addComment(createCommentDto: CreateCommentDto): Promise<Idea> {
+  async addComment(createCommentDto: CreateCommentDto): Promise<IdeaDto> {
     return firstValueFrom(
       this.client.send({ cmd: 'add_comment' }, createCommentDto),
     );

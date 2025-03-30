@@ -1,5 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
-import { CreateIdeaDto, Idea } from '@conidea/model';
+import { CreateIdeaDto, IdeaDto } from '@conidea/model';
 import axios, { AxiosResponse } from 'axios';
 
 const apiUrl = process.env.API_URL || 'http://localhost:3000/api';
@@ -23,7 +23,7 @@ describe('error handling', () => {
       .reply(400, { message: expectedErrorMessage, statusCode: 400 });
 
     try {
-      response = await axios.post<Idea>(`${apiUrl}/ideas/new`, data);
+      response = await axios.post<IdeaDto>(`${apiUrl}/ideas/new`, data);
     } catch (error) {
       response = error.response;
     }

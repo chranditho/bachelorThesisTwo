@@ -1,7 +1,12 @@
 import { Controller } from '@nestjs/common';
 import { IdeasService } from './ideas.service';
 import { MessagePattern } from '@nestjs/microservices';
-import { ChangeStatusDto, CreateIdeaDto } from '@conidea/model';
+import {
+  ChangeStatusDto,
+  CreateCommentDto,
+  CreateDraftDto,
+  CreateIdeaDto,
+} from '@conidea/model';
 
 @Controller()
 export class IdeasController {
@@ -14,11 +19,23 @@ export class IdeasController {
 
   @MessagePattern({ cmd: 'create_idea' })
   async createIdea(createIdeaDto: CreateIdeaDto) {
-    return this.userService.create(createIdeaDto);
+    console.log('Creating new Idea:', createIdeaDto);
+    await this.userService.create(createIdeaDto);
+    return { success: true };
   }
 
   @MessagePattern({ cmd: 'update_status' })
   async updateStatus(changeStatusDto: ChangeStatusDto) {
     return this.userService.updateStatus(changeStatusDto);
+  }
+
+  @MessagePattern({ cmd: 'add_comment' })
+  async addComment(createCommentDto: CreateCommentDto) {
+    return this.userService.addComment(createCommentDto);
+  }
+
+  @MessagePattern({ cmd: 'submit_draft' })
+  async submitDraft(createDraftDto: CreateDraftDto) {
+    return this.userService.submitDraft(createDraftDto);
   }
 }

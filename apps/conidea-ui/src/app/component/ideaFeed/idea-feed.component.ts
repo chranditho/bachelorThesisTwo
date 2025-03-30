@@ -1,6 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeStatusDto, CreateCommentDto, Idea } from '@conidea/model';
+import {
+  ChangeStatusDto,
+  CreateCommentDto,
+  IdeaDto,
+  UserDto,
+} from '@conidea/model';
 import { IdeaCardComponent } from './ideaCard/idea-card.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -139,9 +144,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 })
 export class IdeaFeedComponent {
   @Input({ required: true })
-  ideas!: Idea[];
+  ideas!: IdeaDto[];
   @Input({ required: true })
   isStatusChangeable!: boolean;
+  @Input({ required: true })
+  loggedInUser!: UserDto;
 
   @Output()
   statusChange = new EventEmitter<ChangeStatusDto>();
@@ -157,9 +164,9 @@ export class IdeaFeedComponent {
     this.statusChange.emit(changeStatus);
   }
 
-  ideaFilter(ideasToFilter: Idea[]) {
+  ideaFilter(ideasToFilter: IdeaDto[]) {
     return ideasToFilter.filter(
-      (idea) => idea.author && idea.author.isLoggedIn,
+      (idea) => this.loggedInUser._id === idea.author.userId,
     );
   }
 

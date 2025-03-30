@@ -54,7 +54,7 @@ import { DraftService } from '../../service/draft.service';
               color="primary"
               type="submit"
               [disabled]="ideaForm.invalid"
-              (click)="onSubmit(user.id)"
+              (click)="onSubmit(user._id, user.firstname + ' ' + user.lastname)"
             >
               Submit
             </button>
@@ -63,7 +63,7 @@ import { DraftService } from '../../service/draft.service';
               mat-button
               type="submit"
               [disabled]="ideaForm.invalid"
-              (click)="onSave(user.id)"
+              (click)="onSave(user._id)"
             >
               Save as draft
             </button>
@@ -103,12 +103,16 @@ export class AddIdeaPageComponent implements OnInit, OnDestroy {
     this.user$ = this.roleService.getCurrentUser();
   }
 
-  onSubmit(userId: string) {
+  onSubmit(userId: string, authorName: string) {
+    const author = {
+      userId: userId,
+      name: authorName,
+    };
     if (this.ideaForm.valid) {
       const newIdea: CreateIdeaDto = {
         title: this.ideaForm.controls.title.value,
         description: this.ideaForm.controls.description.value,
-        userId,
+        author,
       };
 
       this.ideaService.postIdea(newIdea).subscribe({

@@ -23,73 +23,82 @@
 >
   <aside class="xl:pr-8 xl:pt-20">
     <h3 id="ideaDraftHeading" class="text-center">Drafts</h3>
-    <section class="flex w-full flex-wrap gap-4 xl:flex-col">
-      @for (draft of drafts$ | async; track draft._id) {
-        <mat-card class="w-80">
-          <mat-card-header>
-            <mat-card-title class="text-lg">
+    @if (user$ | async; as user) {
+      <section class="flex w-full flex-wrap gap-4 xl:flex-col">
+        @for (draft of drafts$ | async; track draft._id) {
+          <mat-card class="w-80">
+            <mat-card-header>
+              <mat-card-title class="text-lg">
+                @if (isEditing[draft._id]) {
+                  <input [(ngModel)]="draft.title" type="text" />
+                } @else {
+                  <h6>{{ draft.title }}</h6>
+                }
+              </mat-card-title>
+              <mat-card-subtitle
+                >{{ draft.createdAt | date: 'dd MMM' }}
+              </mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content class="h-full">
               @if (isEditing[draft._id]) {
-                <input [(ngModel)]="draft.title" type="text" />
+                <textarea [(ngModel)]="draft.description"></textarea>
               } @else {
-                <h6>{{ draft.title }}</h6>
+                <p
+                  [innerHTML]="draft.description"
+                  id="card-description"
+                  class="break-words"
+                ></p>
               }
-            </mat-card-title>
-            <mat-card-subtitle
-              >{{ draft.createdAt | date: 'dd MMM' }}
-            </mat-card-subtitle>
-          </mat-card-header>
+            </mat-card-content>
 
-          <mat-card-content class="h-full">
-            @if (isEditing[draft._id]) {
-              <textarea [(ngModel)]="draft.description"></textarea>
-            } @else {
-              <p
-                [innerHTML]="draft.description"
-                id="card-description"
-                class="break-words"
-              ></p>
-            }
-          </mat-card-content>
-
-          <mat-card-actions align="end" class="space-x-1">
-            @if (!isEditing[draft._id]) {
-              <button mat-button color="accent" (click)="toggleEdit(draft._id)">
-                Edit
-              </button>
-              <button
-                mat-flat-button
-                (click)="
-                  submitDraft(draft._id, {
-                    title: draft.title,
-                    description: draft.description,
-                    userId: draft.userId,
-                  })
-                "
-              >
-                Submit
-              </button>
-            } @else {
-              <button mat-button (click)="deleteDraft(draft._id)">
-                <span class="text-status-rejected">Delete</span>
-              </button>
-              <button
-                mat-flat-button
-                (click)="
-                  updateDraft(draft._id, {
-                    title: draft.title,
-                    description: draft.description,
-                  })
-                "
-              >
-                Save
-              </button>
-            }
-          </mat-card-actions>
-        </mat-card>
-      } @empty {
-        No drafts yet.
-      }
-    </section>
+            <mat-card-actions align="end" class="space-x-1">
+              @if (!isEditing[draft._id]) {
+                <button
+                  mat-button
+                  color="accent"
+                  (click)="toggleEdit(draft._id)"
+                >
+                  Edit
+                </button>
+                <button
+                  mat-flat-button
+                  (click)="
+                    submitDraft(draft._id, {
+                      title: draft.title,
+                      description: draft.description,
+                      author: {
+                        userId: user._id,
+                        name: user.firstname + ' ' + user.lastname,
+                      },
+                    })
+                  "
+                >
+                  Submit
+                </button>
+              } @else {
+                <button mat-button (click)="deleteDraft(draft._id)">
+                  <span class="text-status-rejected">Delete</span>
+                </button>
+                <button
+                  mat-flat-button
+                  (click)="
+                    updateDraft(draft._id, {
+                      title: draft.title,
+                      description: draft.description,
+                    })
+                  "
+                >
+                  Save
+                </button>
+              }
+            </mat-card-actions>
+          </mat-card>
+        } @empty {
+          No drafts yet.
+        }
+      </section>
+    }
   </aside>
   <main class="w-full lg:pl-8">
     <h1 class="text-center" id="ideaFeedHeading">Idea Feed</h1>
@@ -100,6 +109,7 @@
           [isStatusChangeable]="user.role === UserRole.Reviewer"
           (statusChange)="onStatusChange($event)"
           (commentCreation)="onCommentCreation($event)"
+          [loggedInUser]="user"
         />
       }
     } @else {

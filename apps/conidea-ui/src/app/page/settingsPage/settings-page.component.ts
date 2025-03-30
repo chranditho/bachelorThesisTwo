@@ -60,7 +60,7 @@ export class SettingsPageComponent implements OnInit {
     if (tabIndex >= 0 && tabIndex < users.length) {
       const selectedUser: UserDto = users[tabIndex];
 
-      this.roleService.logIn(selectedUser.id).subscribe({
+      this.roleService.logIn(selectedUser._id).subscribe({
         next: (user) =>
           this.showSnackBar(`Logged in as ${user.email}`, 'success-snackbar'),
         error: () => this.showSnackBar('Error logging in', 'error-snackbar'),
