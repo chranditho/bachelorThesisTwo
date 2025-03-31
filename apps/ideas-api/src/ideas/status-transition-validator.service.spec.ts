@@ -4,6 +4,7 @@ import { Status } from '@conidea/model';
 describe('StatusTransitionValidatorService', () => {
   describe('checkStatusTransitionValidity', () => {
     const allStatuses = [
+      Status.Draft,
       Status.Submitted,
       Status.InReview,
       Status.Rejected,
@@ -12,7 +13,7 @@ describe('StatusTransitionValidatorService', () => {
     ];
 
     allStatuses.forEach((fromStatus) => {
-      allStatuses.forEach((toStatus) => {
+      allStatuses.forEach((toStatus: never) => {
         const isValidTransition =
           StatusTransitionValidatorService.validTransitions()[
             fromStatus

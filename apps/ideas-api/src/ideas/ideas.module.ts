@@ -5,6 +5,8 @@ import { StatusTransitionValidatorService } from './status-transition-validator.
 import { IdeasService } from './ideas.service';
 import { Idea, IdeaSchema } from './ideas.schema';
 import { User, UserSchema } from '../../../users-api/src/app/user.schema';
+import { DraftsController } from '../drafts/drafts.controller';
+import { DraftsService } from '../drafts/drafts.service';
 
 @Module({
   imports: [
@@ -12,7 +14,7 @@ import { User, UserSchema } from '../../../users-api/src/app/user.schema';
     MongooseModule.forFeature([{ name: Idea.name, schema: IdeaSchema }]),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  controllers: [IdeasController],
-  providers: [IdeasService, StatusTransitionValidatorService],
+  controllers: [IdeasController, DraftsController],
+  providers: [IdeasService, StatusTransitionValidatorService, DraftsService],
 })
 export class IdeasModule {}

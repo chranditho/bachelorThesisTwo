@@ -1,57 +1,34 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Logger,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { DraftsService } from './drafts.service';
-import { CreateDraftDto, UpdateDraftDto } from '@conidea/model';
-import { Draft } from './schemas/draft.schema';
-import { MessagePattern } from '@nestjs/microservices';
+import { CreateIdeaDto, DraftDto, UpdateDraftDto } from '@conidea/model';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
-@Controller('drafts')
+@Controller()
 export class DraftsController {
   constructor(private readonly draftsService: DraftsService) {}
 
   @MessagePattern({ cmd: 'create_draft' })
-  async create(@Body() createDraftDto: CreateDraftDto) {
-    try {
-      Logger.log(
-        `Creating new Draft:  ${createDraftDto.title} ${createDraftDto.description}`,
-        DraftsController.name,
-      );
-      await this.draftsService.create(createDraftDto);
-
-      const successMessage = 'Draft created successfully!';
-      Logger.log(successMessage, DraftsController.name);
-
-      return { message: successMessage };
-    } catch (error) {
-      Logger.error(
-        `Error creating new draft: ${error.message}`,
-        DraftsController.name,
-      );
-    }
+  async create(@Payload() createIdeaDto: CreateIdeaDto) {
+    Logger.log(
+      `Creating new Draft: ${createIdeaDto.title} ${createIdeaDto.description}`,
+      DraftsController.name,
+    );
+    await this.draftsService.create(createIdeaDto);
+    return { message: 'Draft created successfully!' };
   }
+
   @MessagePattern({ cmd: 'update_draft' })
-  async update(
-    @Param('id') id: string,
-    @Body() updateDraftDto: UpdateDraftDto,
-  ) {
-    return this.draftsService.update(id, updateDraftDto);
+  async update(@Payload() payload: { id: string; dto: UpdateDraftDto }) {
+    return this.draftsService.update(payload.id, payload.dto);
   }
 
   @MessagePattern({ cmd: 'get_all_drafts' })
-  findAll(): Promise<Draft[]> {
+  findAll(): Promise<DraftDto[]> {
     return this.draftsService.findAll();
   }
 
   @MessagePattern({ cmd: 'delete_draft' })
-  remove(@Param('id') id: string) {
-    return this.draftsService.remove(id);
+  remove(@Payload() payload: { id: string }) {
+    return this.draftsService.remove(payload.id);
   }
 }

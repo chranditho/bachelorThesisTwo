@@ -12,8 +12,7 @@ import {
   CreateDraftDto,
   CreateIdeaDto,
   IdeaDto,
-  UserDto,
-  UserRole,
+  Status,
 } from '@conidea/model';
 import { StatusTransitionValidatorService } from './status-transition-validator.service';
 import { Idea } from './ideas.schema';
@@ -23,15 +22,10 @@ export class IdeasService {
   constructor(@InjectModel(Idea.name) private ideaModel: Model<Idea>) {}
 
   async findAll(): Promise<IdeaDto[]> {
-    const ideas = await this.ideaModel.find().exec();
+    const ideas = await this.ideaModel
+      .find({ status: { $ne: Status.Draft } })
+      .exec();
     return ideas.map((idea) => {
-      const author: UserDto = {
-        _id: idea.author.id,
-        email: 'email',
-        firstname: 'firstname',
-        role: UserRole.User,
-        isLoggedIn: false,
-      };
       const dto: IdeaDto = {
         _id: idea.id,
         title: idea.title,
@@ -109,7 +103,7 @@ export class IdeasService {
     try {
       return await this.ideaModel.create({
         ...createDraftDto,
-        author: createDraftDto.userId,
+        status: Status.Draft,
       });
     } catch (error) {
       Logger.error(error, IdeasService.name);

@@ -29,6 +29,7 @@ export interface CreateCommentDto {
 }
 
 export enum Status {
+  Draft = 'Draft',
   Submitted = 'Submitted',
   InReview = 'In Review',
   Accepted = 'Accepted',
@@ -61,7 +62,10 @@ export interface DraftDto extends CreateIdeaDto {
 }
 
 export interface CreateDraftDto extends UpdateDraftDto {
-  userId: string;
+  author: {
+    userId: string;
+    name: string;
+  };
 }
 
 export interface UpdateDraftDto {

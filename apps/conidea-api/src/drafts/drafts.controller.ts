@@ -8,52 +8,55 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { DraftsService } from './drafts.service';
-import { CreateDraftDto, UpdateDraftDto } from '@conidea/model';
+import { CreateDraftDto, CreateIdeaDto, UpdateDraftDto } from '@conidea/model';
 import { Draft } from './schemas/draft.schema';
+import {
+  ClientProxy,
+  ClientProxyFactory,
+  Transport,
+} from '@nestjs/microservices';
+import { firstValueFrom } from 'rxjs';
 
 @Controller('drafts')
 export class DraftsController {
-  constructor(private readonly draftsService: DraftsService) {}
+  private client: ClientProxy;
+
+  constructor() {
+    this.client = ClientProxyFactory.create({
+      transport: Transport.RMQ,
+      options: {
+        urls: ['amqp://localhost:5672'],
+        queue: 'ideas_queue',
+        queueOptions: { durable: false },
+      },
+    });
+  }
 
   @Post()
-  async create(@Body() createDraftDto: CreateDraftDto) {
-    try {
-      Logger.log(
-        `Creating new Draft:  ${createDraftDto.title} ${createDraftDto.description}`,
-        DraftsController.name,
-      );
-      await this.draftsService.create(createDraftDto);
-
-      const successMessage = 'Draft created successfully!';
-      Logger.log(successMessage, DraftsController.name);
-
-      return { message: successMessage };
-    } catch (error) {
-      Logger.error(
-        `Error creating new draft: ${error.message}`,
-        DraftsController.name,
-      );
-    }
+  async create(@Body() createIdeaDto: CreateIdeaDto) {
+    Logger.log(
+      `Creating new Draft:  ${createIdeaDto.title} ${createIdeaDto.description}`,
+      DraftsController.name,
+    );
+    return firstValueFrom(
+      this.client.send({ cmd: 'create_draft' }, createIdeaDto),
+    );
   }
 
   @Get()
   findAll(): Promise<Draft[]> {
-    return this.draftsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.draftsService.findOne(id);
+    return firstValueFrom(this.client.send({ cmd: 'get_all_drafts' }, {}));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDraftDto: UpdateDraftDto) {
-    return this.draftsService.update(id, updateDraftDto);
+    return firstValueFrom(
+      this.client.send({ cmd: 'update_draft' }, { id, updateDraftDto }),
+    );
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.draftsService.remove(id);
+    return this.client.send({ cmd: 'delete_draft' }, { id });
   }
 }

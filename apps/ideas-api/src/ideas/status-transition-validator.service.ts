@@ -9,6 +9,7 @@ export class StatusTransitionValidatorService {
 
   static validTransitions() {
     return {
+      [Status.Draft]: [Status.Submitted],
       [Status.Submitted]: [Status.InReview],
       [Status.InReview]: [Status.Submitted, Status.Accepted, Status.Rejected],
       [Status.Rejected]: [Status.Submitted, Status.InReview, Status.Accepted],

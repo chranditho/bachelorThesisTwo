@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDraftDto, UpdateDraftDto } from '@conidea/model';
+import {
+  CreateIdeaDto,
+  DraftDto,
+  Status,
+  UpdateDraftDto,
+} from '@conidea/model';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Draft } from './schemas/draft.schema';
+import { Idea } from '../ideas/ideas.schema';
 
 @Injectable()
 export class DraftsService {
-  constructor(@InjectModel(Draft.name) private draftModel: Model<Draft>) {}
+  constructor(@InjectModel(Idea.name) private ideaModel: Model<Idea>) {}
 
-  async create(createDraftDto: CreateDraftDto) {
-    await this.draftModel.create(createDraftDto);
+  async create(createIdeaDto: CreateIdeaDto) {
+    await this.ideaModel.create({ ...createIdeaDto, status: Status.Draft });
   }
 
-  findAll(): Promise<Draft[]> {
-    return this.draftModel.find();
+  async findAll(): Promise<DraftDto[]> {
+    const drafts = await this.ideaModel.find({ status: Status.Draft });
+    return drafts.map((draft) => {
+      const dto: DraftDto = {
+        _id: draft.id,
+        title: draft.title,
+        description: draft.description,
+        author: {
+          userId: draft.author.id,
+          name: draft.author.name,
+        },
+        createdAt: draft.createdAt,
+      };
+      return dto;
+    });
   }
 
   update(id: string, updateDraftDto: UpdateDraftDto) {
-    return this.draftModel.findByIdAndUpdate(id, updateDraftDto).exec();
+    return this.ideaModel.findByIdAndUpdate(id, updateDraftDto).exec();
   }
 
   remove(id: string) {
-    return this.draftModel.findByIdAndDelete(id).exec();
+    return this.ideaModel.findByIdAndDelete(id).exec();
   }
 }

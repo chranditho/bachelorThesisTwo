@@ -63,7 +63,7 @@ import { DraftService } from '../../service/draft.service';
               mat-button
               type="submit"
               [disabled]="ideaForm.invalid"
-              (click)="onSave(user._id)"
+              (click)="onSave(user)"
             >
               Save as draft
             </button>
@@ -124,12 +124,15 @@ export class AddIdeaPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSave(userId: string) {
+  onSave(userId: UserDto) {
     if (this.ideaForm.valid) {
       const newDraft: CreateDraftDto = {
         title: this.ideaForm.controls.title.value,
         description: this.ideaForm.controls.description.value,
-        userId,
+        author: {
+          userId: userId._id,
+          name: `${userId.firstname} ${userId.lastname}`,
+        },
       };
 
       this.draftService.create(newDraft).subscribe({
