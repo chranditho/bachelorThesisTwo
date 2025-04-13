@@ -8,7 +8,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateDraftDto, CreateIdeaDto, UpdateDraftDto } from '@conidea/model';
+import { CreateIdeaDto, UpdateDraftDto } from '@conidea/model';
 import { Draft } from './schemas/draft.schema';
 import {
   ClientProxy,
