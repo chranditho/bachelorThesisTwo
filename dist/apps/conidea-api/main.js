@@ -504,7 +504,7 @@ exports.environment = {
     },
     cors: {
         origin: '*',
-    }
+    },
 };
 
 

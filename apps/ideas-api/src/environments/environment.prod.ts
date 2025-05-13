@@ -12,5 +12,5 @@ export const environment = {
     url: process.env.RMQ || 'amqp://localhost:5672',
     queue: 'ideas_queue',
     queueOptions: { durable: false },
-  }
+  },
 };

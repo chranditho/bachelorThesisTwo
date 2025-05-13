@@ -30,6 +30,7 @@ Before proceeding with the deployment, ensure you have the following:
 ## Code Preparation
 
 1. **Finalize Code Changes**:
+
    - Verify all environment configuration files are correctly set up
    - Ensure all hardcoded URLs have been replaced with environment variables
    - Run local tests to confirm the application works with the new configuration
@@ -43,6 +44,7 @@ Before proceeding with the deployment, ensure you have the following:
 ### Azure DevOps Pipeline
 
 1. **Create a New Project**:
+
    - Sign in to Azure DevOps
    - Create a new project or use an existing one
    - Import the ConIdea repository
@@ -50,6 +52,7 @@ Before proceeding with the deployment, ensure you have the following:
 2. **Create Build Pipelines**:
 
    a. **Frontend Pipeline (conidea-ui)**:
+
    ```yaml
    # azure-pipelines-frontend.yml
    trigger:
@@ -65,31 +68,32 @@ Before proceeding with the deployment, ensure you have the following:
      vmImage: 'ubuntu-latest'
 
    steps:
-   - task: NodeTool@0
-     inputs:
-       versionSpec: '18.x'
-     displayName: 'Install Node.js'
+     - task: NodeTool@0
+       inputs:
+         versionSpec: '18.x'
+       displayName: 'Install Node.js'
 
-   - script: |
-       npm install
-       npm run build -- --prod
-     displayName: 'Build Frontend'
+     - script: |
+         npm install
+         npm run build -- --prod
+       displayName: 'Build Frontend'
 
-   - task: CopyFiles@2
-     inputs:
-       sourceFolder: 'dist/apps/conidea-ui'
-       contents: '**'
-       targetFolder: '$(Build.ArtifactStagingDirectory)'
-     displayName: 'Copy Build Files'
+     - task: CopyFiles@2
+       inputs:
+         sourceFolder: 'dist/apps/conidea-ui'
+         contents: '**'
+         targetFolder: '$(Build.ArtifactStagingDirectory)'
+       displayName: 'Copy Build Files'
 
-   - task: PublishBuildArtifacts@1
-     inputs:
-       pathToPublish: '$(Build.ArtifactStagingDirectory)'
-       artifactName: 'frontend'
-     displayName: 'Publish Frontend Artifact'
+     - task: PublishBuildArtifacts@1
+       inputs:
+         pathToPublish: '$(Build.ArtifactStagingDirectory)'
+         artifactName: 'frontend'
+       displayName: 'Publish Frontend Artifact'
    ```
 
    b. **Backend Pipelines (for each service)**:
+
    ```yaml
    # azure-pipelines-backend.yml
    trigger:
@@ -107,42 +111,44 @@ Before proceeding with the deployment, ensure you have the following:
      vmImage: 'ubuntu-latest'
 
    steps:
-   - task: NodeTool@0
-     inputs:
-       versionSpec: '18.x'
-     displayName: 'Install Node.js'
+     - task: NodeTool@0
+       inputs:
+         versionSpec: '18.x'
+       displayName: 'Install Node.js'
 
-   - script: |
-       npm install
-     displayName: 'Install Dependencies'
+     - script: |
+         npm install
+       displayName: 'Install Dependencies'
 
-   - task: CopyFiles@2
-     inputs:
-       contents: |
-         apps/**
-         libs/**
-         package.json
-         nx.json
-         tsconfig.base.json
-       targetFolder: '$(Build.ArtifactStagingDirectory)'
-     displayName: 'Copy Source Files'
+     - task: CopyFiles@2
+       inputs:
+         contents: |
+           apps/**
+           libs/**
+           package.json
+           nx.json
+           tsconfig.base.json
+         targetFolder: '$(Build.ArtifactStagingDirectory)'
+       displayName: 'Copy Source Files'
 
-   - task: PublishBuildArtifacts@1
-     inputs:
-       pathToPublish: '$(Build.ArtifactStagingDirectory)'
-       artifactName: 'backend'
-     displayName: 'Publish Backend Artifact'
+     - task: PublishBuildArtifacts@1
+       inputs:
+         pathToPublish: '$(Build.ArtifactStagingDirectory)'
+         artifactName: 'backend'
+       displayName: 'Publish Backend Artifact'
    ```
 
 3. **Create Release Pipelines**:
 
    a. **Frontend Release**:
+
    - Create a new release pipeline
    - Add the frontend artifact
    - Add an Azure Static Web App deployment task
    - Configure environment-specific variables
 
    b. **Backend Release**:
+
    - Create a new release pipeline
    - Add the backend artifact
    - Add Azure App Service deployment tasks for each service
@@ -153,13 +159,14 @@ Before proceeding with the deployment, ensure you have the following:
 If using GitHub instead of Azure DevOps, create the following workflow files:
 
 1. **Frontend Workflow**:
+
 ```yaml
 # .github/workflows/frontend.yml
 name: Frontend CI/CD
 
 on:
   push:
-    branches: [ main, staging ]
+    branches: [main, staging]
     paths:
       - 'apps/conidea-ui/**'
 
@@ -168,18 +175,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          
+
       - name: Install dependencies
         run: npm install
-        
+
       - name: Build
         run: npm run build -- --prod
-        
+
       - name: Deploy to Azure Static Web App
         uses: Azure/static-web-apps-deploy@v1
         with:
@@ -191,13 +198,14 @@ jobs:
 ```
 
 2. **Backend Workflow**:
+
 ```yaml
 # .github/workflows/backend.yml
 name: Backend CI/CD
 
 on:
   push:
-    branches: [ main, staging ]
+    branches: [main, staging]
     paths:
       - 'apps/conidea-api/**'
       - 'apps/ideas-api/**'
@@ -208,29 +216,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          
+
       - name: Install dependencies
         run: npm install
-        
+
       - name: Deploy to Azure Web App - conidea-api
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'conidea-api'
           publish-profile: ${{ secrets.CONIDEA_API_PUBLISH_PROFILE }}
           package: .
-          
+
       - name: Deploy to Azure Web App - ideas-api
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'ideas-api'
           publish-profile: ${{ secrets.IDEAS_API_PUBLISH_PROFILE }}
           package: .
-          
+
       - name: Deploy to Azure Web App - users-api
         uses: azure/webapps-deploy@v2
         with:
@@ -242,19 +250,21 @@ jobs:
 ## Infrastructure Deployment
 
 1. **Prepare Azure CLI**:
+
    ```bash
    # Login to Azure
    az login
-   
+
    # Set the subscription
    az account set --subscription <subscription-id>
    ```
 
 2. **Deploy Infrastructure**:
+
    ```bash
    # Make the deployment script executable
    chmod +x azure-deploy.sh
-   
+
    # Run the deployment script
    ./azure-deploy.sh
    ```
@@ -268,12 +278,13 @@ jobs:
 1. **Initial Manual Deployment**:
 
    a. **Backend Services**:
+
    ```bash
    # Build the backend services
    npm run build -- conidea-api
    npm run build -- ideas-api
    npm run build -- users-api
-   
+
    # Deploy to Azure App Services
    az webapp deployment source config-zip --resource-group conidea-rg --name conidea-api --src dist/apps/conidea-api.zip
    az webapp deployment source config-zip --resource-group conidea-rg --name ideas-api --src dist/apps/ideas-api.zip
@@ -281,10 +292,11 @@ jobs:
    ```
 
    b. **Frontend**:
+
    ```bash
    # Build the frontend
    npm run build -- conidea-ui --prod
-   
+
    # Deploy to Azure Static Web App
    az staticwebapp deploy --name conidea-ui --source dist/apps/conidea-ui
    ```
@@ -296,14 +308,17 @@ jobs:
 ## Post-Deployment Verification
 
 1. **Verify Service Health**:
+
    - Check the status of all deployed services in Azure Portal
    - Verify that all services are running without errors
 
 2. **Test API Endpoints**:
+
    - Use tools like Postman or curl to test the API endpoints
    - Verify that the API returns the expected responses
 
 3. **Test Frontend**:
+
    - Access the frontend URL and verify that it loads correctly
    - Test all major functionality to ensure it works as expected
 
@@ -314,16 +329,19 @@ jobs:
 ## Monitoring and Alerting Setup
 
 1. **Configure Application Insights**:
+
    - Verify that Application Insights is collecting data
    - Set up custom events and metrics for important operations
 
 2. **Create Dashboards**:
+
    ```bash
    # Create a dashboard for monitoring
    az portal dashboard create --resource-group conidea-rg --name ConIdeaDashboard --location eastus --input-path dashboard-template.json
    ```
 
 3. **Set Up Alerts**:
+
    - Create alerts for critical metrics:
      - High CPU/memory usage
      - Error rate thresholds
@@ -340,14 +358,17 @@ jobs:
 ### Common Issues and Solutions
 
 1. **Connection Issues**:
+
    - **Problem**: Services cannot connect to MongoDB or RabbitMQ
    - **Solution**: Verify connection strings in App Service configuration
 
 2. **CORS Errors**:
+
    - **Problem**: Frontend cannot access backend APIs due to CORS
    - **Solution**: Check CORS configuration in the backend services
 
 3. **Deployment Failures**:
+
    - **Problem**: CI/CD pipeline fails during deployment
    - **Solution**: Check build logs for errors, verify service principal permissions
 
@@ -371,10 +392,12 @@ az webapp config appsettings list --name conidea-api --resource-group conidea-rg
 ## Maintenance and Updates
 
 1. **Regular Updates**:
+
    - Schedule regular updates for dependencies
    - Test updates in a staging environment before production
 
 2. **Backup Strategy**:
+
    - Configure automated backups for Cosmos DB
    - Document restore procedures
 

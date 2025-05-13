@@ -5,7 +5,9 @@ This repository contains comprehensive documentation for deploying the ConIdea d
 ## Documentation Overview
 
 ### 1. [Azure Deployment Plan](azure-deployment-plan.md)
+
 This document provides a high-level overview of the deployment strategy, including:
+
 - System architecture overview
 - Required Azure resources
 - Configuration changes needed
@@ -13,7 +15,9 @@ This document provides a high-level overview of the deployment strategy, includi
 - Scaling, monitoring, security, and cost considerations
 
 ### 2. [Azure Deployment Summary](azure-deployment-summary.md)
+
 This document summarizes the changes that have been made to prepare the system for Azure deployment:
+
 - Environment configuration changes
 - Documentation created
 - Deployment automation scripts
@@ -21,7 +25,9 @@ This document summarizes the changes that have been made to prepare the system f
 - Next steps overview
 
 ### 3. [Azure Next Steps Guide](azure-next-steps-guide.md)
+
 This document provides detailed, step-by-step instructions for completing the deployment:
+
 - Prerequisites
 - Code preparation
 - CI/CD pipeline setup (Azure DevOps and GitHub Actions)
@@ -35,7 +41,9 @@ This document provides detailed, step-by-step instructions for completing the de
 ## Deployment Scripts
 
 ### [azure-deploy.sh](azure-deploy.sh)
+
 This script automates the creation of all required Azure resources, including:
+
 - Resource Group
 - Cosmos DB with MongoDB API
 - Azure Service Bus
@@ -54,6 +62,7 @@ This script automates the creation of all required Azure resources, including:
 ## Prerequisites
 
 Before starting the deployment, ensure you have:
+
 - An active Azure subscription
 - Azure CLI installed and configured
 - Node.js and npm installed

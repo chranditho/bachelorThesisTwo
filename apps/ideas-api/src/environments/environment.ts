@@ -12,5 +12,5 @@ export const environment = {
     url: 'amqp://localhost:5672',
     queue: 'ideas_queue',
     queueOptions: { durable: false },
-  }
+  },
 };

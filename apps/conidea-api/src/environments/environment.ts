@@ -16,5 +16,5 @@ export const environment = {
   },
   cors: {
     origin: '*',
-  }
+  },
 };

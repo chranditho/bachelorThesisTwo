@@ -9,6 +9,7 @@ This document summarizes the changes made to prepare the ConIdea distributed sys
 ### 1. Environment Configuration
 
 #### Frontend (Angular)
+
 - Created environment configuration files:
   - `apps/conidea-ui/src/environments/environment.ts` for development
   - `apps/conidea-ui/src/environments/environment.prod.ts` for production
@@ -18,6 +19,7 @@ This document summarizes the changes made to prepare the ConIdea distributed sys
   - `apps/conidea-ui/src/app/service/role.service.ts`
 
 #### Backend Services
+
 - Created configuration files for backend services:
   - `apps/conidea-api/src/config.ts`
   - `apps/ideas-api/src/config.ts`
@@ -54,16 +56,20 @@ This document summarizes the changes made to prepare the ConIdea distributed sys
 ## Azure Resources Used
 
 1. **Compute Resources**
+
    - Azure App Service for backend services
    - Azure Static Web App for frontend
 
 2. **Database**
+
    - Azure Cosmos DB with MongoDB API
 
 3. **Messaging**
+
    - Azure Service Bus (compatible with RabbitMQ clients)
 
 4. **Security**
+
    - Azure Key Vault for secrets management
 
 5. **Monitoring**
@@ -72,18 +78,22 @@ This document summarizes the changes made to prepare the ConIdea distributed sys
 ## Next Steps
 
 1. **Code Deployment**
+
    - Push the updated code to your repository
    - Set up CI/CD pipelines in Azure DevOps or GitHub Actions
 
 2. **Infrastructure Deployment**
+
    - Run the `azure-deploy.sh` script to create the Azure resources
    - Verify that all resources are created correctly
 
 3. **Configuration**
+
    - Update the frontend environment.prod.ts with the actual API URL
    - Configure any additional environment-specific settings
 
 4. **Testing**
+
    - Test the deployed application to ensure all services are communicating correctly
    - Verify that the frontend can access all backend services
 
