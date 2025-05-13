@@ -39,9 +39,12 @@ describe('Ideas Controller', () => {
   describe('create', () => {
     it('should create a new idea successfully', async () => {
       const createIdeaDto: CreateIdeaDto = {
-        userId: '8700f966-c8fc-442a-adec-0047f1ca572b',
         title: 'Test Title',
         description: 'Test Description',
+        author: {
+          userId: '',
+          name: '',
+        },
       };
 
       const result = await controller.create(createIdeaDto);
@@ -51,9 +54,12 @@ describe('Ideas Controller', () => {
 
     it('should handle validation errors', async () => {
       const createIdeaDto: CreateIdeaDto = {
-        userId: 'e34e50a2-1c83-4fd9-90ed-02b5e977ac36',
         title: '',
         description: '',
+        author: {
+          userId: '',
+          name: '',
+        },
       };
 
       try {
@@ -66,9 +72,12 @@ describe('Ideas Controller', () => {
 
     it('should handle other errors', async () => {
       const createIdeaDto: CreateIdeaDto = {
-        userId: '18087201-593a-41a7-87b7-96fac85278dd',
         title: 'Test Title',
         description: 'Test Description',
+        author: {
+          userId: '',
+          name: '',
+        },
       };
 
       jest.spyOn(service, 'create').mockImplementation(() => {
