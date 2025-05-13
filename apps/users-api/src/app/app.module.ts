@@ -5,10 +5,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './user.schema';
 import { UserService } from './users.service';
 import { UserController } from './users.controller';
+import { environment } from '../environments/environment';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/conidea'),
+    MongooseModule.forRoot(environment.mongodb.uri),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [AppController, UserController],

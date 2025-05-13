@@ -7,6 +7,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { IdeasModule } from './ideas/ideas.module';
+import { environment } from './environments/environment';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -14,11 +15,9 @@ async function bootstrap() {
     {
       transport: Transport.RMQ,
       options: {
-        urls: [process.env.RMQ || 'amqp://localhost:5672'],
-        queue: 'ideas_queue',
-        queueOptions: {
-          durable: false,
-        },
+        urls: [environment.rabbitmq.url],
+        queue: environment.rabbitmq.queue,
+        queueOptions: environment.rabbitmq.queueOptions,
       },
     },
   );

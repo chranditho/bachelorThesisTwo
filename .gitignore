@@ -1,7 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-dist
 tmp
 /out-tsc
 
@@ -42,3 +41,8 @@ Thumbs.db
 
 .nx/cache
 .nx/workspace-data
+!/azure-deploy.sh
+
+!/azure-deploy-existing-db.sh
+
+!/azure-deploy-frontend.sh

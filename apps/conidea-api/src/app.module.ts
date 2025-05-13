@@ -4,10 +4,11 @@ import { IdeasModule } from './ideas/ideas.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { DraftsModule } from './drafts/drafts.module';
+import { environment } from './environments/environment';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/conidea'),
+    MongooseModule.forRoot(environment.mongodb.uri),
     IdeasModule,
     UsersModule,
     DraftsModule,

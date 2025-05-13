@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { CreateDraftDto, DraftDto, UpdateDraftDto } from '@conidea/model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DraftService {
-  draftsApiUrl = 'http://localhost:3000/api/drafts';
+  draftsApiUrl = `${environment.apiUrl}/drafts`;
 
   constructor(private httpClient: HttpClient) {}
 

@@ -1,0 +1,61 @@
+export declare function model(): string;
+export interface IdeaDto extends CreateIdeaDto {
+    _id: string;
+    status: Status;
+    comments: string[];
+    createdAt: Date;
+}
+export interface CreateIdeaDto {
+    title: string;
+    description: string;
+    author: {
+        userId: string;
+        name: string;
+    };
+}
+export interface ChangeStatusDto {
+    ideaId: string;
+    status: Status;
+}
+export interface CreateCommentDto {
+    ideaId: string;
+    comment: string;
+}
+export declare enum Status {
+    Draft = "Draft",
+    Submitted = "Submitted",
+    InReview = "In Review",
+    Accepted = "Accepted",
+    Rejected = "Rejected",
+    Finished = "Finished"
+}
+export declare enum UserRole {
+    User = "User",
+    Reviewer = "Reviewer"
+}
+export interface UserDto {
+    _id: string;
+    email: string;
+    firstname: string;
+    lastname?: string;
+    role: UserRole;
+    isLoggedIn: boolean;
+}
+export interface Author {
+    id: string;
+    name: string;
+}
+export interface DraftDto extends CreateIdeaDto {
+    _id: string;
+    createdAt: Date;
+}
+export interface CreateDraftDto extends UpdateDraftDto {
+    author: {
+        userId: string;
+        name: string;
+    };
+}
+export interface UpdateDraftDto {
+    title: string;
+    description: string;
+}

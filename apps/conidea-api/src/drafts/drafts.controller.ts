@@ -16,6 +16,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Controller('drafts')
 export class DraftsController {
@@ -25,9 +26,9 @@ export class DraftsController {
     this.client = ClientProxyFactory.create({
       transport: Transport.RMQ,
       options: {
-        urls: ['amqp://localhost:5672'],
-        queue: 'ideas_queue',
-        queueOptions: { durable: false },
+        urls: [environment.rabbitmq.url],
+        queue: environment.rabbitmq.queue,
+        queueOptions: environment.rabbitmq.queueOptions,
       },
     });
   }
