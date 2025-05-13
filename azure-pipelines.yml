@@ -1,0 +1,89 @@
+name: CI
+
+trigger:
+  - distributed
+pr:
+  - distributed
+
+variables:
+  CI: 'true'
+  ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+    NX_BRANCH: $(System.PullRequest.PullRequestNumber)
+    TARGET_BRANCH: $[replace(variables['System.PullRequest.TargetBranch'],'refs/heads/','origin/')]
+    BASE_SHA: $(git merge-base $(TARGET_BRANCH) HEAD)
+  ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+    NX_BRANCH: $(Build.SourceBranchName)
+    BASE_SHA: $(git rev-parse HEAD~1)
+  HEAD_SHA: $(git rev-parse HEAD)
+
+jobs:
+  - job: main
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - checkout: self
+        fetchDepth: 0
+      # Set Azure Devops CLI default settings
+      - bash: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject)
+        displayName: 'Set default Azure DevOps organization and project'
+      # Get last successfull commit from Azure Devops CLI
+      - bash: |
+          LAST_SHA=$(az pipelines build list --branch $(Build.SourceBranchName) --definition-ids $(System.DefinitionId) --result succeeded --top 1 --query "[0].triggerInfo.\"ci.sourceSha\"")
+          if [ -z "$LAST_SHA" ]
+          then
+            echo "Last successful commit not found. Using fallback 'HEAD~1': $BASE_SHA"
+          else
+            echo "Last successful commit SHA: $LAST_SHA"
+            echo "##vso[task.setvariable variable=BASE_SHA]$LAST_SHA"
+          fi
+        displayName: 'Get last successful commit SHA'
+        condition: ne(variables['Build.Reason'], 'PullRequest')
+        env:
+          AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
+
+      # This enables task distribution via Nx Cloud
+      # Run this command as early as possible, before dependencies are installed
+      # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
+      # Connect your workspace by running "nx connect" and uncomment this line to enable task distribution
+      # - script: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
+
+      - script: npm ci --legacy-peer-deps
+      - script: npx cypress install
+      - script: git branch --track main origin/main
+        condition: eq(variables['Build.Reason'], 'PullRequest')
+
+      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
+      # - script: npx nx-cloud record -- echo Hello World
+      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
+      # When you enable task distribution, run the e2e-ci task instead of e2e
+      - script: npx nx affected --base=$(BASE_SHA) --head=$(HEAD_SHA) lint test build e2e
+
+      - script: |
+          echo "🔄 Deploying affected apps..."
+          AFFECTED_APPS=$(npx nx show projects --affected --type=app --base=$BASE_SHA --head=$HEAD_SHA)
+
+          for app in $AFFECTED_APPS; do
+            echo "📦 Building and deploying $app..."
+
+            # Build the app
+            npx nx build $app
+
+            # Define the expected zip path
+            ZIP_FILE="dist/apps/$app.zip"
+            DIST_DIR="dist/apps/$app"
+
+            # Create the zip file if the build was successful
+            if [ -d "$DIST_DIR" ]; then
+              cd "$DIST_DIR"
+              zip -r "../$app.zip" .
+              cd - > /dev/null
+
+              # Example deployment (replace with actual Azure Web App name mapping)
+              APP_NAME="bthesis-$app"
+              echo "🚀 Deploying $app to Azure Web App: $APP_NAME"
+              az webapp deploy --resource-group bachelor-thesis-microservices-rg --name "$APP_NAME" --src-path "$ZIP_FILE" --type zip
+            else
+              echo "⚠️ Warning: Build output for $app not found at $DIST_DIR"
+            fi
+          done
+        displayName: 'Deploy affected apps to Azure'
