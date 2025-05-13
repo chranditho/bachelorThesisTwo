@@ -52,7 +52,7 @@
       "!{projectRoot}/eslint.config.js",
       "!{projectRoot}/eslint.config.mjs"
     ],
-    "sharedGlobals": ["{workspaceRoot}/azure-pipelines.yml"]
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "generators": {
     "@nx/angular:application": {

@@ -1,7 +1,12 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - distributed
   pull_request:
+    branches:
+      - distributed
 
 jobs:
   main:
@@ -27,3 +32,15 @@ jobs:
 
       - run: npx nx format:check
       - run: npx nx affected -t lint,test,build --parallel=3
+      # Ensure conidea-api is built before deployment
+      - name: Build conidea-api
+        if: github.ref == 'refs/heads/distributed'
+        run: npx nx build conidea-api
+      - name: Deploy to Azure Web App
+        if: github.ref == 'refs/heads/distributed'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: bthesis-conidea-api
+          slot-name: production
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: dist/apps/conidea-api
