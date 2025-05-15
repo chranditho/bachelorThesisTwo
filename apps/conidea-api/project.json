@@ -68,6 +68,10 @@
           "coverage": true
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/conidea-api/Dockerfile . -t conidea-api"
     }
   }
 }
