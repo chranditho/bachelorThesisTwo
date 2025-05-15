@@ -47,3 +47,5 @@ Thumbs.db
 !/azure-deploy-existing-db.sh
 
 !/azure-deploy-frontend.sh
+
+.env

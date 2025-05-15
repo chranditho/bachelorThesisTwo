@@ -71,6 +71,10 @@
           "coverage": true
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build --no-cache -f apps/users-api/Dockerfile . -t users-api"
     }
   }
 }

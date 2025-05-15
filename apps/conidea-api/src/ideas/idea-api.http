@@ -1,0 +1,12 @@
+### Create new idea
+POST http://localhost:3000/api/ideas/new
+Content-Type: application/json
+
+{
+  "title": "My Awesome Idea",
+  "description": "Let's change the world with this idea",
+  "author": {
+    "userId": "94be592a-6597-47dd-a6ad-1ea63952bb7e",
+    "name": "Christoph"
+  }
+}
