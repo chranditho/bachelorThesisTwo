@@ -11,7 +11,8 @@ export const environment = {
   },
   rabbitmq: {
     url: process.env.RMQ || 'amqp://localhost:5672',
-    queue: 'ideas_queue',
+    ideas_queue: 'ideas_queue',
+    users_queue: 'users_queue',
     queueOptions: { durable: false },
   },
   cors: {

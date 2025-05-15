@@ -6,6 +6,7 @@ import {
 } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 import { UserRole } from '@conidea/model';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class UserService {
@@ -15,8 +16,8 @@ export class UserService {
     this.client = ClientProxyFactory.create({
       transport: Transport.RMQ,
       options: {
-        urls: ['amqp://localhost:5672'],
-        queue: 'users_queue',
+        urls: [environment.rabbitmq.url],
+        queue: environment.rabbitmq.users_queue,
         queueOptions: { durable: false },
       },
     });

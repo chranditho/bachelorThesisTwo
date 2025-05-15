@@ -48,4 +48,4 @@ Thumbs.db
 
 !/azure-deploy-frontend.sh
 
-.env
+apps/**/.env

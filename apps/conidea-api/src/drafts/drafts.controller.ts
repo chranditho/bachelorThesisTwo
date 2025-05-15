@@ -27,7 +27,7 @@ export class DraftsController {
       transport: Transport.RMQ,
       options: {
         urls: [environment.rabbitmq.url],
-        queue: environment.rabbitmq.queue,
+        queue: environment.rabbitmq.ideas_queue,
         queueOptions: environment.rabbitmq.queueOptions,
       },
     });

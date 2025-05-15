@@ -11,6 +11,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class IdeasService {
@@ -20,8 +21,8 @@ export class IdeasService {
     this.client = ClientProxyFactory.create({
       transport: Transport.RMQ,
       options: {
-        urls: ['amqp://localhost:5672'],
-        queue: 'ideas_queue',
+        urls: [environment.rabbitmq.url],
+        queue: environment.rabbitmq.ideas_queue,
         queueOptions: { durable: false },
       },
     });

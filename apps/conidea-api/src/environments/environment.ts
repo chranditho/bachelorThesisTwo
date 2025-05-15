@@ -5,16 +5,17 @@
 
 export const environment = {
   production: false,
-  port: 3000,
+  port: process.env.PORT || 3000,
   mongodb: {
-    uri: 'mongodb://localhost:27017/conidea',
+    uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/conidea',
   },
   rabbitmq: {
-    url: 'amqp://localhost:5672',
-    queue: 'ideas_queue',
+    url: process.env.RMQ || 'amqp://localhost:5672',
+    ideas_queue: 'ideas_queue',
+    users_queue: 'users_queue',
     queueOptions: { durable: false },
   },
   cors: {
-    origin: '*',
+    origin: process.env.CORS_ORIGIN || '*',
   },
 };
