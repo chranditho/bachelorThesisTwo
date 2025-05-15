@@ -13,6 +13,23 @@ services:
       MONGO_URI: mongodb://mongo:27017/conidea
       RABBITMQ_URI: amqp://rabbitmq:5672
     restart: unless-stopped
+  ideas-api:
+    image: ideas-api:latest
+    build:
+      context: .
+      dockerfile: apps/ideas-api/Dockerfile
+    container_name: ideas-api
+    ports:
+      - '3001:3000'
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      MONGO_URI: mongodb://mongo:27017/conidea
+      RABBITMQ_URI: amqp://rabbitmq:5672
+    restart: unless-stopped
+    depends_on:
+      - mongo
+      - rabbitmq
   mongo:
     image: mongo:6
     container_name: mongo
