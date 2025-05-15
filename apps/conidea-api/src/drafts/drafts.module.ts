@@ -1,12 +1,8 @@
 import { Module } from '@nestjs/common';
 import { DraftsController } from './drafts.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Draft, DraftSchema } from './schemas/draft.schema';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: Draft.name, schema: DraftSchema }]),
-  ],
+  imports: [],
   controllers: [DraftsController],
 })
 export class DraftsModule {}

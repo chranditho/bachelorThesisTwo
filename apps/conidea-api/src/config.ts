@@ -5,9 +5,6 @@
 
 export const config = {
   port: process.env.PORT || 3000,
-  mongodb: {
-    uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/conidea',
-  },
   rabbitmq: {
     url: process.env.RMQ || 'amqp://localhost:5672',
     queue: 'ideas_queue',

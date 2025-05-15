@@ -16,7 +16,8 @@
         "main": "apps/conidea-api/src/main.ts",
         "tsConfig": "apps/conidea-api/tsconfig.app.json",
         "assets": ["apps/conidea-api/src/assets"],
-        "webpackConfig": "apps/conidea-api/webpack.config.js"
+        "webpackConfig": "apps/conidea-api/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
