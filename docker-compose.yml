@@ -8,7 +8,7 @@ services:
     ports:
       - '3000:3000'
     env_file:
-      - apps/conidea-api/.env
+      - apps/conidea-api/.env.local
     restart: unless-stopped
     depends_on:
       mongo:
@@ -24,7 +24,7 @@ services:
     ports:
       - '3001:3000'
     env_file:
-      - apps/ideas-api/.env
+      - apps/ideas-api/.env.local
     restart: unless-stopped
     depends_on:
       mongo:
@@ -40,7 +40,7 @@ services:
     ports:
       - '3002:3000'
     env_file:
-      - apps/users-api/.env
+      - apps/users-api/.env.local
     restart: unless-stopped
     depends_on:
       mongo:

@@ -49,3 +49,6 @@ Thumbs.db
 !/azure-deploy-frontend.sh
 
 apps/**/.env
+apps/**/.env.local
+
+/benchmarking
