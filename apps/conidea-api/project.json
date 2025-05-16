@@ -72,7 +72,7 @@
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f apps/conidea-api/Dockerfile . -t conidea-monolith-api"
+      "command": "docker build --platform=linux/amd64 -f apps/conidea-api/Dockerfile . -t chrandithothesisregistry.azurecr.io/conidea-monolith-api:latest"
     }
   }
 }
