@@ -1,4 +1,4 @@
-name: monolith
+name: bachelorthesistwo-monolith
 
 services:
   mongodb:
