@@ -72,7 +72,7 @@
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f apps/conidea-api/Dockerfile . -t conidea-api"
+      "command": "docker build -f apps/conidea-api/Dockerfile . -t conidea-monolith-api"
     }
   }
 }
