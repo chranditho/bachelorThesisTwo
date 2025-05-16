@@ -1,0 +1,26 @@
+name: monolith
+
+services:
+  mongodb:
+    container_name: monolith-mongodb
+    image: mongo:6
+    ports:
+      - '27018:27017'
+    volumes:
+      - mongo_data_monolith:/data/db
+
+  conidea-api:
+    container_name: monolith-conidea-api
+    image: conidea-api-monolith:latest
+    build:
+      context: .
+      dockerfile: apps/conidea-api/Dockerfile
+    ports:
+      - '3100:3000'
+    env_file:
+      - apps/conidea-api/.env.local
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo_data_monolith:
