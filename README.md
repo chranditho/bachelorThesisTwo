@@ -21,14 +21,14 @@ Angular frontend ──HTTP──▶ conidea-api   REST API, unchanged for the f
 
 | Project | Role |
 | --- | --- |
-| `apps/conidea-api` | The REST API the frontend calls (port 3000). It has no business logic of its own: each request is sent as a message (for example `{ cmd: 'get_all_ideas' }`) to the service that owns the domain, and the answer goes back to the caller. |
+| `apps/conidea-api` | The REST API the frontend calls (port 3000). It only forwards: each request is sent as a message (for example `{ cmd: 'get_all_ideas' }`) to the service that owns the domain, and the answer goes back to the caller. |
 | `apps/ideas-api` | Microservice for ideas, drafts, comments and validated status changes. Consumes `ideas_queue`. |
 | `apps/users-api` | Microservice for users and roles. Consumes `users_queue`. |
 | `apps/model` | TypeScript types shared by the frontend and all services. |
 | `apps/conidea-ui` | The Angular frontend. |
 
-Keeping the REST surface of `conidea-api` identical is what lets the frontend carry over
-with only small changes. The `*-e2e` projects hold the API and UI tests.
+As described in the thesis, the BFF keeps the API compatible with the existing frontend.
+The `*-e2e` projects hold the API and UI tests.
 
 ## Running it
 
@@ -64,9 +64,9 @@ npx nx serve conidea-ui
 
 ## Deployment
 
-Notes and a pipeline for deploying this system to Azure are in `azure-deployment-plan.md`,
-`azure-deployment-readme.md`, `azure-deployment-summary.md`, `azure-next-steps-guide.md` and
-`azure-pipelines.yml`.
+Notes on deploying this system to Azure are in `azure-deployment-plan.md`,
+`azure-deployment-readme.md`, `azure-deployment-summary.md` and `azure-next-steps-guide.md`;
+`azure-pipelines.yml` is an Azure DevOps pipeline definition.
 
 ## Benchmarks
 
