@@ -29,7 +29,7 @@ ConIdea is a small idea-management app. Users submit ideas (title and descriptio
 | **`main`** (this one) | **Monolith.** One NestJS API (`conidea-api`) on MongoDB, an Angular frontend (`conidea-ui`) and a shared `model` library. |
 | **[`distributed`](../../tree/distributed)** | **Microservices.** `conidea-api` stays the REST API the frontend talks to and forwards requests over RabbitMQ to `ideas-api` and `users-api`. All services share the `model` library. Deployment notes for Azure are in the `azure-*.md` files and `azure-pipelines.yml` on that branch. |
 
-The frontend and the e2e tests are the same on both branches, which is what makes the comparison fair.
+The Angular frontend and the e2e tests carry over to `distributed` with small adaptations (renamed model types such as `Idea` to `IdeaDto`, environment configuration, some component updates). The Cypress UI tests are unchanged.
 
 ## Running it
 
